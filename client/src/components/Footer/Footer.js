@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import './Footer.css';
 
 class Footer extends Component {
-  componentDidUpdate() {
+  constructor(props) {
+    super(props);
+    this.setFooterPosition = this.setFooterPosition.bind(this);
+  }
+
+  setFooterPosition() {
     const body = document.body;
     const footer = document.getElementsByTagName('footer')[0];
     if (body.offsetHeight < window.screen.height) {
@@ -11,6 +16,10 @@ class Footer extends Component {
     } else {
       footer.style.position = 'inherit';
     }
+  }
+
+  componentDidUpdate() {
+    this.setFooterPosition();
   }
 
   render() {
