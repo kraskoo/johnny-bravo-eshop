@@ -30,7 +30,7 @@ class Navbar extends Component {
       <nav className="navbar navbar-default">
         <div className="container-fluid">
           <div className="navbar-header">
-            <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+            <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapsed" aria-expanded="false">
               <span className="sr-only">Toggle navigation</span>
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
@@ -39,7 +39,7 @@ class Navbar extends Component {
             <NavLink to="/" className="navbar-brand">Home</NavLink>
           </div>
           
-          <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+          <div className="collapse navbar-collapse" id="navbar-collapsed">
             {/* <ul className="nav navbar-nav">
               <li className="active"><a href="#">Link <span className="sr-only">(current)</span></a></li>
               <li><a href="#">Link</a></li>
@@ -68,7 +68,7 @@ class Navbar extends Component {
                   (
                     <Fragment>
                       <li><span>Hello, {this.props.user.username}!</span></li>
-                      <li><a href="javascript:void(0)" onClick={this.handleLogout}>Logout</a></li>
+                      <li><span id="logout" onClick={this.handleLogout}>Logout</span></li>
                     </Fragment>
                   ) :
                   (

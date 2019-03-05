@@ -8,6 +8,7 @@ import NotFound from '../NotFound/NotFound';
 import { UserProvider, UserConsumer, userValue } from '../../contexts/UserContext';
 import withConsumer from '../../hocs/withConsumer';
 import SessionService from '../../services/session';
+import Footer from '../Footer/Footer';
 
 const HomeWithUserContext = withConsumer(Home, UserConsumer);
 const RegisterWithUserContext = withConsumer(Register, UserConsumer);
@@ -57,6 +58,7 @@ class App extends Component {
               <Route component={NotFound} />
             </Switch>
           </UserProvider>
+          <Footer />
         </Fragment>
       </Router>
     );
