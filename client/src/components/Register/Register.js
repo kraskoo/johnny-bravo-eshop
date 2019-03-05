@@ -9,7 +9,6 @@ class Register extends Component {
     this.state = { username: '', email: '', password: '' };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.onExistingToken = this.onExistingToken.bind(this);
   }
 
   handleChange({ target }) {
@@ -40,24 +39,6 @@ class Register extends Component {
     });
   }
 
-  onExistingToken() {
-    const token = sessionStorage.getItem('token');
-    const email = sessionStorage.getItem('email');
-    const sessionService = new SessionService();
-    sessionService.getSession({ jwtString: token, email }).then(body => {
-      if (body.success) {
-        this.props.updateUser({ ...body.user, token: body.token });
-      }
-    });
-  }
-
-  componentDidMount() {
-    const token = sessionStorage.getItem('token');
-    if (token && !this.props.user) {
-      this.onExistingToken();
-    }
-  }
-
   render() {
     if (this.props.user) {
       return <Redirect to="/" />;
@@ -66,7 +47,7 @@ class Register extends Component {
     return (
       <div className="container">
         <div className="col-md-6">
-          <h1>Login Form</h1>
+          <h1>Register Form</h1>
           <form onSubmit={this.handleSubmit}>
             <div className="input-group">
               <span className="input-group-addon" id="username-addon">Username</span>
