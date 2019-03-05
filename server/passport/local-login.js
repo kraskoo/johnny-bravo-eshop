@@ -19,7 +19,7 @@ module.exports = new PassportLocalStrategy({
 
     const payload = { sub: user.id };
     const token = jwt.sign(payload, jwtSecretKey);
-    const data = { username: user.username };
+    const data = { email: user.email };
     if (user.roles) {
       data.roles = user.roles;
     }

@@ -1,6 +1,27 @@
 import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
+import SessionService from '../../services/session';
 
 class Navbar extends Component {
+  constructor(props) {
+    super(props);
+    this.handleLogout = this.handleLogout.bind(this);
+  }
+
+  handleLogout(e) {
+    e.preventDefault();
+    const email = sessionStorage.getItem('email');
+    const jwtString = sessionStorage.getItem('token');
+    const sessionService = new SessionService();
+    sessionService.deleteSession({ jwtString, email }).then(body => {
+      if (body.success) {
+        this.props.updateUser(null);
+        sessionStorage.removeItem('email');
+        sessionStorage.removeItem('token');
+      }
+    });
+  }
+
   render() {
     // Some dummy menu
     return (
@@ -13,7 +34,7 @@ class Navbar extends Component {
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
             </button>
-            <a className="navbar-brand" href="#">Brand</a>
+            <NavLink to="/" className="navbar-brand">Brand</NavLink>
           </div>
           
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -40,7 +61,9 @@ class Navbar extends Component {
               <button type="submit" className="btn btn-default">Submit</button>
             </form>
             <ul className="nav navbar-nav navbar-right">
-              <li><a href="#">Link</a></li>
+              <li><NavLink to="/user/register">Register</NavLink></li>
+              <li><NavLink to="/user/login">Login</NavLink></li>
+              <li><a href="#" onClick={this.handleLogout}>Logout</a></li>
               <li className="dropdown">
                 <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span className="caret"></span></a>
                 <ul className="dropdown-menu">

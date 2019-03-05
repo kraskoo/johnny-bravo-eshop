@@ -9,5 +9,11 @@ module.exports = {
     registerSuccess: 'You have successfully signed up! Now you should be able to log in.',
     unprocessableForm: 'Could not process the form.',
     loginSuccess: 'You have successfully logged in!'
+  },
+  session: {
+    createdSuccess: 'Successfully created session.',
+    parametersMissing: 'Body parameters are missing.',
+    sessionExists: 'Session exists.',
+    deletedSuccess: 'Successfully deleted session.'
   }
 };
