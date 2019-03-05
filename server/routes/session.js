@@ -44,8 +44,8 @@ router.post('/get', (req, res, next) => {
         return res.status(200).json({
           success: true,
           message: messages.sessionExists,
-          token: session.token,
-          user: { email: user.email, roles: user.roles }
+          token: session.jwtString,
+          user: { username: user.username, email: user.email, roles: user.roles }
         });
       }).catch(error => {
         return res.status(400).json({
@@ -72,7 +72,6 @@ router.post('/remove', (req, res, next) => {
   if (body) {
     const { jwtString, email } = body;
     User.findOne({ email }).then(user => {
-      console.log(user);
       Session.findOneAndRemove({ jwtString, user: user._id }).then(session => {
         return res.status(200).json({
           success: true,

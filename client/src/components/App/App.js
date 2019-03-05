@@ -6,48 +6,41 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import NotFound from '../NotFound/NotFound';
 import { UserProvider, UserConsumer, userValue } from '../../contexts/UserContext';
+import withConsumer from '../../hocs/withConsumer';
+import SessionService from '../../services/session';
 
-const HomeWithUserContext = () => {
-  return (
-    <UserConsumer>
-      {(value) => (<Home user={value.user} updateUser={value.updateUser} />)}
-    </UserConsumer>
-  );
-};
-
-const RegisterWithUserContext = () => {
-  return (
-    <UserConsumer>
-      {(value) => (<Register user={value.user} updateUser={value.updateUser} />)}
-    </UserConsumer>
-  );
-}
-
-const LoginWithUserContext = () => {
-  return (
-    <UserConsumer>
-      {(value) => (<Login user={value.user} updateUser={value.updateUser} />)}
-    </UserConsumer>
-  );
-}
-
-const NavbarWithUserContext = () => {
-  return (
-    <UserConsumer>
-      {(value) => (<Navbar user={value.user} updateUser={value.updateUser} />)}
-    </UserConsumer>
-  );
-}
+const HomeWithUserContext = withConsumer(Home, UserConsumer);
+const RegisterWithUserContext = withConsumer(Register, UserConsumer);
+const LoginWithUserContext = withConsumer(Login, UserConsumer);
+const NavbarWithUserContext = withConsumer(Navbar, UserConsumer);
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = { user: userValue.user };
     this.updateUser = this.updateUser.bind(this);
+    this.onExistingToken = this.onExistingToken.bind(this);
+  }
+
+  onExistingToken() {
+    const token = sessionStorage.getItem('token');
+    const email = sessionStorage.getItem('email');
+    const sessionService = new SessionService();
+    sessionService.getSession({ jwtString: token, email }).then(body => {
+      if (body.success) {
+        this.updateUser({ ...body.user, token: body.token });
+      }
+    });
+  }
+
+  componentDidMount() {
+    const token = sessionStorage.getItem('token');
+    if (token && !this.props.user) {
+      this.onExistingToken();
+    }
   }
 
   updateUser(user) {
-    userValue.user = user;
     this.setState({ user });
   }
 

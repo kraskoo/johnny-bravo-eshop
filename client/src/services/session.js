@@ -4,9 +4,10 @@ import BaseService from "./base";
 class SessionService extends BaseService {
   constructor() {
     super();
-    this.createSessionUrl = `${this.baseUrl}/session/create`;
-    this.getSessionUrl = `${this.baseUrl}/session/get`;
-    this.logoutUrl = `${this.baseUrl}/session/remove`;
+    this.baseUrl = `${this.baseUrl}/session`;
+    this.createSessionUrl = `${this.baseUrl}/create`;
+    this.getSessionUrl = `${this.baseUrl}/get`;
+    this.deleteSessionUrl = `${this.baseUrl}/remove`;
   }
 
   addSession(session) {
@@ -18,7 +19,7 @@ class SessionService extends BaseService {
   }
 
   deleteSession(body) {
-    return post(this.logoutUrl, body);
+    return post(this.deleteSessionUrl, body);
   }
 }
 

@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React, { Fragment, Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import SessionService from '../../services/session';
+import './Navbar.css';
 
 class Navbar extends Component {
   constructor(props) {
@@ -12,18 +13,19 @@ class Navbar extends Component {
     e.preventDefault();
     const email = sessionStorage.getItem('email');
     const jwtString = sessionStorage.getItem('token');
-    const sessionService = new SessionService();
-    sessionService.deleteSession({ jwtString, email }).then(body => {
-      if (body.success) {
-        this.props.updateUser(null);
-        sessionStorage.removeItem('email');
-        sessionStorage.removeItem('token');
-      }
-    });
+    if (email && jwtString) {
+      const sessionService = new SessionService();
+      sessionService.deleteSession({ jwtString, email }).then(body => {
+        if (body.success) {
+          this.props.updateUser(null);
+          sessionStorage.removeItem('email');
+          sessionStorage.removeItem('token');
+        }
+      });
+    }
   }
 
   render() {
-    // Some dummy menu
     return (
       <nav className="navbar navbar-default">
         <div className="container-fluid">
@@ -34,11 +36,11 @@ class Navbar extends Component {
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
             </button>
-            <NavLink to="/" className="navbar-brand">Brand</NavLink>
+            <NavLink to="/" className="navbar-brand">Home</NavLink>
           </div>
           
           <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <ul className="nav navbar-nav">
+            {/* <ul className="nav navbar-nav">
               <li className="active"><a href="#">Link <span className="sr-only">(current)</span></a></li>
               <li><a href="#">Link</a></li>
               <li className="dropdown">
@@ -59,21 +61,23 @@ class Navbar extends Component {
                 <input type="text" className="form-control" placeholder="Search" />
               </div>
               <button type="submit" className="btn btn-default">Submit</button>
-            </form>
+            </form> */}
             <ul className="nav navbar-nav navbar-right">
-              <li><NavLink to="/user/register">Register</NavLink></li>
-              <li><NavLink to="/user/login">Login</NavLink></li>
-              <li><a href="#" onClick={this.handleLogout}>Logout</a></li>
-              <li className="dropdown">
-                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span className="caret"></span></a>
-                <ul className="dropdown-menu">
-                  <li><a href="#">Action</a></li>
-                  <li><a href="#">Another action</a></li>
-                  <li><a href="#">Something else here</a></li>
-                  <li role="separator" className="divider"></li>
-                  <li><a href="#">Separated link</a></li>
-                </ul>
-              </li>
+              {
+                this.props.user ?
+                  (
+                    <Fragment>
+                      <li><span>Hello, {this.props.user.username}!</span></li>
+                      <li><a href="javascript:void(0)" onClick={this.handleLogout}>Logout</a></li>
+                    </Fragment>
+                  ) :
+                  (
+                    <Fragment>
+                      <li><NavLink to="/user/register">Register</NavLink></li>
+                      <li><NavLink to="/user/login">Login</NavLink></li>
+                    </Fragment>
+                  )
+              }
             </ul>
           </div>
         </div>

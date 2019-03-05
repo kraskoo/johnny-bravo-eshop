@@ -1,0 +1,11 @@
+ul.nav.navbar-nav.navbar-right > li > span {
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+
+.nav > li > span {
+	position: relative;
+	display: block;
+	padding: 10px 15px;
+	color: #777;
+}

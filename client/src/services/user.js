@@ -4,8 +4,9 @@ import BaseService from './base';
 class UserService extends BaseService {
   constructor() {
     super();
-    this.loginUrl = `${this.baseUrl}/user/login`;
-    this.registerUrl = `${this.baseUrl}/user/register`;
+    this.baseUrl = `${this.baseUrl}/user`;
+    this.loginUrl = `${this.baseUrl}/login`;
+    this.registerUrl = `${this.baseUrl}/register`;
   }
 
   login(body) {

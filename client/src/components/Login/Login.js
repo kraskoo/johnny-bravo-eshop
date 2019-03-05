@@ -9,7 +9,6 @@ class Login extends Component {
     this.state = { email: '', password: '' };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
-    this.onExistingToken = this.onExistingToken.bind(this);
   }
 
   handleChange({ target }) {
@@ -34,24 +33,6 @@ class Login extends Component {
         });
       }
     });
-  }
-
-  onExistingToken() {
-    const token = sessionStorage.getItem('token');
-    const email = sessionStorage.getItem('email');
-    const sessionService = new SessionService();
-    sessionService.getSession({ jwtString: token, email }).then(body => {
-      if (body.success) {
-        this.props.updateUser({ ...body.user, token: body.token });
-      }
-    });
-  }
-
-  componentDidMount() {
-    const token = sessionStorage.getItem('token');
-    if (token && !this.props.user) {
-      this.onExistingToken();
-    }
   }
 
   render() {

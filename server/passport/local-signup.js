@@ -21,7 +21,6 @@ module.exports = new PassportLocalStrategy({
     user.password = encryption.generateHashedPassword(user.salt, user.password);
     user.roles = ['Regular'];
     User.create(user).then(() => {
-      console.log(user);
       return done(null);
     }).catch(() => {
       return done('Something went wrong :( Check the form for errors.')
