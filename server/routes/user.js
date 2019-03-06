@@ -69,7 +69,7 @@ router.post('/register', (req, res, next) => {
     if (err) {
       return res.status(200).json({
         success: false,
-        message: err.message
+        message: err
       });
     }
     
