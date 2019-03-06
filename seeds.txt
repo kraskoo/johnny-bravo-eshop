@@ -1,0 +1,13 @@
+-- Categories --
+Olympic Bar
+Grip Plate
+Dumbbells
+Treadmills
+Veloergometers
+
+-- Tags --
+CARDIO machine - http://img01.dftfit.com/repository/image/Uet_cXp4SneiwaXAbzb-bg.png_366xa.png
+Strength machine - http://img01.dftfit.com/repository/image/QwqbrlcCRYGKrDs_Y8AfHA.png_366xa.png
+Plate loaded - http://img01.dftfit.com/repository/image/4HYXzMd_Q_2XwoTav9JGkw.png_366xa.png
+Multifunctional - http://img01.dftfit.com/repository/image/XEeIjBedRk-6RtBTnuVYOg.jpg_366xa.jpg
+Accessories - http://img01.dftfit.com/repository/image/ruwDfyPPQ2a2GbB0953faA.png_366xa.png

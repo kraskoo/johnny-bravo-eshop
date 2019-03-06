@@ -10,7 +10,7 @@ router.post('/create', (req, res) => {
   } else {
     return res.status(400).json({
       success: false,
-      message: 'Request should have body!'
+      message: messages.requiredBody
     });
   }
 });

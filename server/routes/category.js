@@ -35,7 +35,7 @@ router.get('/edit/:id/:newName', (req, res) => {
       catergory.save().then(() => {
         return res.status(200).json({
           success: true,
-          message: `Successfully edited category ${catergory.name}!`
+          message: messages.editedCategory(catergory)
         });
       }).catch(error => {
         return res.status(400).json({
@@ -52,7 +52,7 @@ router.get('/edit/:id/:newName', (req, res) => {
   } else {
     return res.status(400).json({
       success: false,
-      message: 'Request should parameters!'
+      message: messages.requiredParameters
     });
   }
 });
@@ -61,7 +61,7 @@ router.get('/all', (req, res) => {
   Category.find({}).then(categories => {
     return res.status(200).json({
       success: true,
-      message: 'Successfully fetched all categories!',
+      message: messages.fetchedCategories,
       categories
     });
   }).catch(error => {

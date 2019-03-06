@@ -21,7 +21,9 @@ module.exports = {
   category: {
     createdCategory: 'Successfully create category!',
     requiredBody: 'Request should have body!',
-
+    editedCategory: (catergory) => `Successfully edited category ${catergory.name}!`,
+    requiredParameters: 'Request should parameters!',
+    fetchedCategories: 'Successfully fetched all categories!'
   },
   tag: {
     createdTag: 'Successfully created tag!',
@@ -29,6 +31,7 @@ module.exports = {
     fetchedTags: 'Successfully fetched all tags!'
   },
   device: {
-    fetchedDevices: 'Successfully fetched all devices!'
+    fetchedDevices: 'Successfully fetched all devices!',
+    requiredBody: 'Request should have body!'
   }
 };

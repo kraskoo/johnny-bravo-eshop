@@ -15,14 +15,9 @@ class SetAdminRole extends Component {
   }
 
   handleSubmit(e) {
-    const firstOptionValue = e.target.children[0].children[1].children[0].value;
-    if (!this.state.id) {
-      this.setState({ id: firstOptionValue });
-    }
-
     e.preventDefault();
     const userService = new UserService();
-    userService.setToAdminRole(this.state.id ? this.state.id : firstOptionValue).then(body => {
+    userService.setToAdminRole(this.state.id).then(body => {
       if (body.success) {
         this.setState({ hasSubmitted: true });
         this.props.toast.success(body.message);
@@ -37,6 +32,10 @@ class SetAdminRole extends Component {
   componentDidMount() {
     const userService = new UserService();
     userService.getAllRegularUsers().then(body => {
+      if (body.users.length > 0) {
+        this.setState({ id: body.users[0]._id });
+      }
+
       this.setState({ users: body.users });
     }).catch(error => {
       this.props.toast.error(error.message);
