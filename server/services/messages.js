@@ -8,7 +8,9 @@ module.exports = {
     requiredPassword: 'Please provide your password.',
     registerSuccess: 'You have successfully signed up! Now you should be able to log in.',
     unprocessableForm: 'Could not process the form.',
-    loginSuccess: 'You have successfully logged in!'
+    loginSuccess: 'You have successfully logged in!',
+    fetchedUserWithoutAdminRole: 'Successfully fetched all user without \'Admin\' role',
+    setAdminRoleSuccessfully: (user) => `Successfully set admin role to ${user.username}`
   },
   session: {
     createdSuccess: 'Successfully created session.',

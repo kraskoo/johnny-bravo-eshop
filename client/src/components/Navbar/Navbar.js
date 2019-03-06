@@ -67,8 +67,22 @@ class Navbar extends Component {
                 this.props.user ?
                   (
                     <Fragment>
-                      <li><span>Hello, {this.props.user.username}!</span></li>
-                      <li><span id="logout" onClick={this.handleLogout}>Logout</span></li>
+                      <ul className="nav navbar-nav">
+                        <li className="dropdown">
+                          <span className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hello, {this.props.user.username}!<span className="caret"></span></span>
+                          <ul className="dropdown-menu">
+                            {
+                              this.props.user.roles.includes('Admin') ?
+                              <Fragment>
+                                <li><NavLink to="/user/setadminrole">Set Admin Role</NavLink></li>
+                                <li><a href="#">Action</a></li>
+                                <li role="separator" className="divider"></li>
+                              </Fragment> : null
+                            }
+                            <li><span id="logout" onClick={this.handleLogout}>Logout</span></li>
+                          </ul>
+                        </li>
+                      </ul>
                     </Fragment>
                   ) :
                   (

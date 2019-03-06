@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import UserService from '../../services/user';
-import SessionService from '../../services/session';
+import UserService from '../../../services/user';
+import SessionService from '../../../services/session';
 
 class Register extends Component {
   constructor(props) {

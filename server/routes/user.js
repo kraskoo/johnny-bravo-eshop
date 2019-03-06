@@ -1,6 +1,7 @@
 const express = require('express');
 const passport = require('passport');
 const validator = require('validator');
+const User = require('../models/User');
 const router = new express.Router();
 const requirements = require('../config/settings').requirements;
 const messages = require('../services/messages').user;
@@ -111,6 +112,54 @@ router.post('/login', (req, res, next) => {
       user: userData
     });
   })(req, res, next);
+});
+
+router.get('/allRegular', (req, res) => {
+  User.find({}).then(users => {
+    const usersNotInAdminRole = [];
+    users.forEach(user => {
+      if (!user.roles.includes('Admin')) {
+        usersNotInAdminRole.push(user);
+      }
+    });
+    return res.status(200).json({
+      success: true,
+      message: messages.fetchedUserWithoutAdminRole,
+      users: usersNotInAdminRole
+    });
+  }).catch(error => {
+    return res.status(400).json({
+      success: false,
+      message: error.message
+    });
+  });
+});
+
+router.get('/setadmin/:id', (req, res) => {
+  const id = req.params.id;
+  User.findById(id).then(user => {
+    if (!user.roles.includes('Admin')) {
+      // TODO: fix one role issue (possible fix - delete enum from roles in model)
+      user.roles.pop();
+      user.roles.push('Admin');
+      user.save().then(() => {
+        return res.status(200).json({
+          success: true,
+          message: messages.setAdminRoleSuccessfully(user)
+        });
+      }).catch(error => {
+        return res.status(400).json({
+          success: false,
+          message: error.message
+        })
+      });
+    }
+  }).catch(error => {
+    return res.status(400).json({
+      success: false,
+      message: error.message
+    });
+  });
 });
 
 module.exports = router;

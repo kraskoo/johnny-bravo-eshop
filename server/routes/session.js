@@ -5,7 +5,7 @@ const User = require('../models/User');
 const messages = require('../services/messages').session;
 const hash = require('../services/hash');
 
-router.post('/create', (req, res, next) => {
+router.post('/create', (req, res) => {
   const body = req.body;
   if (body) {
     const { jwtString, email } = req.body;
@@ -44,7 +44,7 @@ router.post('/create', (req, res, next) => {
   }
 });
 
-router.post('/get', (req, res, next) => {
+router.post('/get', (req, res) => {
   const body = req.body;
   if (body) {
     const { jwtString, email } = body;
@@ -93,7 +93,7 @@ router.post('/get', (req, res, next) => {
   }
 });
 
-router.post('/remove', (req, res, next) => {
+router.post('/remove', (req, res) => {
   const body = req.body;
   if (body) {
     const { jwtString, email } = body;

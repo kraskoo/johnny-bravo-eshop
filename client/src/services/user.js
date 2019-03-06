@@ -1,4 +1,4 @@
-import { post } from './request';
+import { get, post } from './request';
 import BaseService from './base';
 
 class UserService extends BaseService {
@@ -7,6 +7,8 @@ class UserService extends BaseService {
     this.baseUrl = `${this.baseUrl}/user`;
     this.loginUrl = `${this.baseUrl}/login`;
     this.registerUrl = `${this.baseUrl}/register`;
+    this.allRegularUrl = `${this.baseUrl}/allRegular`;
+    this.setToAdminUrl = `${this.baseUrl}/setadmin`;
   }
 
   login(body) {
@@ -15,6 +17,15 @@ class UserService extends BaseService {
 
   register(body) {
     return post(this.registerUrl, body);
+  }
+
+  getAllRegularUsers() {
+    return get(this.allRegularUrl);
+  }
+
+  setToAdminRole(id) {
+    const url = `${this.setToAdminUrl}/${id}`;
+    return get(url);
   }
 }
 
