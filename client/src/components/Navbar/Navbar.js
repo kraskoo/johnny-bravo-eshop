@@ -17,11 +17,18 @@ class Navbar extends Component {
       const sessionService = new SessionService();
       sessionService.deleteSession({ jwtString, email }).then(body => {
         if (body.success) {
+          this.props.toast.success('Successfully logout.');
           this.props.updateUser(null);
           sessionStorage.removeItem('email');
           sessionStorage.removeItem('token');
+        } else {
+          this.props.toast.error(body.message);
         }
+      }).catch(error => {
+        this.props.toast.error(error.message);
       });
+    } else {
+      this.props.toast.error('jwtString or email is missing');
     }
   }
 

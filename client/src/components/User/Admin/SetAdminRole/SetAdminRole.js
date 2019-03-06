@@ -20,7 +20,12 @@ class SetAdminRole extends Component {
     userService.setToAdminRole(this.state.id).then(body => {
       if (body.success) {
         this.setState({ hasSubmitted: true });
+        this.props.toast.success(body.message);
+      } else {
+        this.props.toast.error(body.message);
       }
+    }).catch(error => {
+      this.props.toast.error(error.message);
     });
   }
 

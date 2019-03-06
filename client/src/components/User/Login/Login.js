@@ -29,9 +29,18 @@ class Login extends Component {
             sessionStorage.setItem('token', token);
             sessionStorage.setItem('email', email);
             this.props.updateUser({ ...userBody.user, token });
+            this.props.toast.success(userBody.message);
+          } else {
+            this.props.toast.error(sessionBody.message);
           }
+        }).catch(error => {
+          this.props.toast.error(error.message);
         });
+      } else {
+        this.props.toast.error(userBody.message);
       }
+    }).catch(error => {
+      this.props.toast.error(error.message);
     });
   }
 

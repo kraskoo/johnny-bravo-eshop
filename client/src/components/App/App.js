@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 import Navbar from '../Navbar/Navbar';
 import Footer from '../Footer/Footer';
@@ -27,12 +29,13 @@ class AppBase extends Component {
       <Router>
         <Fragment>
           <UserProvider value={{ user: this.props.user, updateUser: this.props.updateUser }}>
-            <NavbarWithUserContext />
+            <ToastContainer autoClose={3000} hideProgressBar={true} closeButton={<span>&otimes;</span>} />
+            <NavbarWithUserContext toast={toast} />
             <Switch>
-              <Route path="/" exact component={HomeWithUserConsumer} />
-              <Route path="/user/login" exact component={LoginWithUserConsumer} />
-              <Route path="/user/register" exact component={RegisterWithUserConsumer} />
-              <Route path="/user/setadminrole" exact component={SetAdminRoleWithUserConsumer} />
+              <Route path="/" exact render={(props) => <HomeWithUserConsumer {...props} toast={toast} />} />
+              <Route path="/user/login" exact render={(props) => <LoginWithUserConsumer {...props} toast={toast} />} />
+              <Route path="/user/register" exact render={(props) => <RegisterWithUserConsumer {...props} toast={toast} />} />
+              <Route path="/user/setadminrole" exact render={(props) => <SetAdminRoleWithUserConsumer {...props} toast={toast} />} />
               <Route component={NotFound} />
             </Switch>
           </UserProvider>

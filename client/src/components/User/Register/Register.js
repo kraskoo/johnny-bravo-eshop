@@ -31,11 +31,24 @@ class Register extends Component {
                 sessionStorage.setItem('token', token);
                 sessionStorage.setItem('email', email);
                 this.props.updateUser({ ...loginBody.user, token });
+                this.props.toast.success(registerBody.message);
+              } else {
+                this.props.toast.error(sessionBody.message);
               }
+            }).catch(error => {
+              this.props.toast.error(error.message);
             });
+          } else {
+            this.props.toast.error(loginBody.message);
           }
+        }).catch(error => {
+          this.props.toast.error(error.message);
         });
+      } else {
+        this.props.toast.error(registerBody.message);
       }
+    }).catch(error => {
+      this.props.toast.error(error.message);
     });
   }
 
