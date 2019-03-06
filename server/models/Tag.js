@@ -1,10 +1,10 @@
 const mongoose = require('mongoose');
 
-const categorySchema = new mongoose.Schema({
+const tagSchema = new mongoose.Schema({
   name: { type: String, required: true },
   devices: [{ type: String, ref: 'Device' }]
 });
 
-const Category = mongoose.model('Category', categorySchema);
+const Tag = mongoose.model('Tag', tagSchema);
 
-module.exports = Category;
+module.exports = Tag;

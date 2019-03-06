@@ -17,5 +17,18 @@ module.exports = {
     parametersMissing: 'Body parameters are missing.',
     sessionExists: 'Session exists.',
     deletedSuccess: 'Successfully deleted session.'
+  },
+  category: {
+    createdCategory: 'Successfully create category!',
+    requiredBody: 'Request should have body!',
+
+  },
+  tag: {
+    createdTag: 'Successfully created tag!',
+    requiredBody: 'Request should have body!',
+    fetchedTags: 'Successfully fetched all tags!'
+  },
+  device: {
+    fetchedDevices: 'Successfully fetched all devices!'
   }
 };

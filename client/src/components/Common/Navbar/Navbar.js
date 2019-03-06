@@ -1,6 +1,6 @@
 import React, { Fragment, Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import SessionService from '../../services/session';
+import SessionService from '../../../services/session';
 import './Navbar.css';
 
 class Navbar extends Component {
@@ -45,30 +45,17 @@ class Navbar extends Component {
             </button>
             <NavLink to="/" className="navbar-brand">Home</NavLink>
           </div>
-          
           <div className="collapse navbar-collapse" id="navbar-collapsed">
-            {/* <ul className="nav navbar-nav">
-              <li className="active"><a href="#">Link <span className="sr-only">(current)</span></a></li>
-              <li><a href="#">Link</a></li>
-              <li className="dropdown">
-                <a href="#" className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span className="caret"></span></a>
-                <ul className="dropdown-menu">
-                  <li><a href="#">Action</a></li>
-                  <li><a href="#">Another action</a></li>
-                  <li><a href="#">Something else here</a></li>
-                  <li role="separator" className="divider"></li>
-                  <li><a href="#">Separated link</a></li>
-                  <li role="separator" className="divider"></li>
-                  <li><a href="#">One more separated link</a></li>
-                </ul>
-              </li>
+            <ul className="nav navbar-nav">
+              {
+                this.props.user ?
+                  <Fragment>
+                    <li><NavLink to="/tag/all">All Tags</NavLink></li>
+                    <li><NavLink to="/category/all">All Category</NavLink></li>
+                  </Fragment> :
+                  null
+              }
             </ul>
-            <form className="navbar-form navbar-left">
-              <div className="form-group">
-                <input type="text" className="form-control" placeholder="Search" />
-              </div>
-              <button type="submit" className="btn btn-default">Submit</button>
-            </form> */}
             <ul className="nav navbar-nav navbar-right">
               {
                 this.props.user ?
@@ -82,7 +69,8 @@ class Navbar extends Component {
                               this.props.user.roles.includes('Admin') ?
                               <Fragment>
                                 <li><NavLink to="/user/setadminrole">Set Admin Role</NavLink></li>
-                                <li><a href="#">Action</a></li>
+                                <li><NavLink to="/tag/create">Create Tag</NavLink></li>
+                                <li><NavLink to="/category/create">Create Category</NavLink></li>
                                 <li role="separator" className="divider"></li>
                               </Fragment> : null
                             }
