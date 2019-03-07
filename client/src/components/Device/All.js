@@ -52,7 +52,6 @@ class AllDevices extends Component {
                       <img src={device.imageUrls[0]} alt={device.name} />
                       <div className="caption">
                         <h3>{slicedName.join('')}</h3>
-                        <h5>{device.cat}</h5>
                         <p>{slicedDescription.join('')}</p>
                         <p>
                           <a href="#" className="btn btn-primary" role="button">Details</a>
@@ -63,7 +62,7 @@ class AllDevices extends Component {
                   </div>
                 )
               }) :
-              null
+              <h3 className="text-center">Sorry, no devices to show.</h3>
           }
         </div>
       </div>
