@@ -34,13 +34,9 @@ class Navbar extends Component {
     }
   }
   
-  // This function fix issue of incorrect behavior of NavDropdown
-  onClickListItem() {
-    const anchor = document.getElementById('user-dropdown');
-    const dropdown = anchor.parentNode;
-    anchor.setAttribute('aria-expanded', false);
-    dropdown.classList.remove('open');
-    anchor.click();
+  // This function fix incorrect behavior of NavDropdown
+  onClickListItem(id) {
+    document.getElementById(id).click();
   }
 
   render() {
@@ -57,8 +53,8 @@ class Navbar extends Component {
             {
               this.props.user ?
                 <Fragment>
-                  <li><NavLink to="/tag/all">All Tags</NavLink></li>
                   <li><NavLink to="/category/all">All Category</NavLink></li>
+                  <li><NavLink to="/device/all">All Devices</NavLink></li>
                 </Fragment> :
                 null
             }
@@ -70,10 +66,10 @@ class Navbar extends Component {
                   {
                     this.props.user.roles.includes('Admin') ?
                       <Fragment>
-                        <li onClick={this.onClickListItem}><NavLink to="/user/setadminrole">Set Admin Role</NavLink></li>
-                        <li onClick={this.onClickListItem}><NavLink to="/tag/create">Create Tag</NavLink></li>
-                        <li onClick={this.onClickListItem}><NavLink to="/category/create">Create Category</NavLink></li>
-                        <li onClick={this.onClickListItem} role="separator" className="divider"></li>
+                        <li onClick={() => this.onClickListItem('user-dropdown')}><NavLink to="/user/setadminrole">Set Admin Role</NavLink></li>
+                        <li onClick={() => this.onClickListItem('user-dropdown')}><NavLink to="/category/create">Create Category</NavLink></li>
+                        <li onClick={() => this.onClickListItem('user-dropdown')}><NavLink to="/device/create">Create Device</NavLink></li>
+                        <li role="separator" className="divider"></li>
                       </Fragment> : null
                   }
                   <li><span id="logout" onClick={this.handleLogout}>Logout</span></li>

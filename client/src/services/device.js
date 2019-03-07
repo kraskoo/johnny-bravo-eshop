@@ -1,12 +1,13 @@
 import BaseService from './base';
 import { get, post } from './request';
 
-class TagService extends BaseService {
+class DeviceService extends BaseService {
   constructor() {
     super();
-    this.baseUrl = `${this.baseUrl}/tag`;
+    this.baseUrl = `${this.baseUrl}/device`;
     this.createUrl = `${this.baseUrl}/create`;
     this.getAllUrl = `${this.baseUrl}/all`;
+    this.deleteUrl = `${this.baseUrl}/delete`;
   }
 
   create(body) {
@@ -16,6 +17,11 @@ class TagService extends BaseService {
   getAll() {
     return get(this.getAllUrl);
   }
+
+  delete(id) {
+    const url = `${this.deleteUrl}/${id}`;
+    return get(url);
+  }
 }
 
-export default TagService;
+export default DeviceService;

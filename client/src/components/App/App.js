@@ -10,10 +10,10 @@ import Login from '../User/Login/Login';
 import Register from '../User/Register/Register';
 import SetAdminRole from '../User/Admin/SetAdminRole/SetAdminRole';
 import NotFound from '../NotFound/NotFound';
-import CreateTag from '../Tag/Create';
-import AllTags from '../Tag/All';
 import CreateCategory from '../Category/Create';
 import AllCategories from '../Category/All';
+import CreateDevice from '../Device/Create';
+import AllDevices from '../Device/All';
 
 import { UserProvider, UserConsumer } from '../../contexts/UserContext';
 
@@ -25,11 +25,10 @@ const RegisterWithUserConsumer = withConsumer(Register, UserConsumer);
 const LoginWithUserConsumer = withConsumer(Login, UserConsumer);
 const SetAdminRoleWithUserConsumer = withConsumer(SetAdminRole, UserConsumer);
 const NavbarWithUserContext = withConsumer(Navbar, UserConsumer);
-const CreateTagWithUserContext = withConsumer(CreateTag, UserConsumer);
-const AllTagsWithUserContext = withConsumer(AllTags, UserConsumer);
 const CreateCategoryWithUserContext = withConsumer(CreateCategory, UserConsumer);
 const AllCategoriesWithUserContext = withConsumer(AllCategories, UserConsumer);
-
+const CreateDeviceWithUserContext = withConsumer(CreateDevice, UserConsumer);
+const AllDevicesWithUserContext = withConsumer(AllDevices, UserConsumer);
 
 class AppBase extends Component {
   render() {
@@ -44,10 +43,10 @@ class AppBase extends Component {
               <Route path="/user/login" exact render={(props) => <LoginWithUserConsumer {...props} toast={toast} />} />
               <Route path="/user/register" exact render={(props) => <RegisterWithUserConsumer {...props} toast={toast} />} />
               <Route path="/user/setadminrole" exact render={(props) => <SetAdminRoleWithUserConsumer {...props} toast={toast} />} />
-              <Route path="/tag/create" exact render={(props) => <CreateTagWithUserContext {...props} toast={toast} />} />
-              <Route path="/tag/all" exact render={(props) => <AllTagsWithUserContext {...props} toast={toast} />} />
               <Route path="/category/create" exact render={(props) => <CreateCategoryWithUserContext {...props} toast={toast} />} />
               <Route path="/category/all" exact render={(props) => <AllCategoriesWithUserContext {...props} toast={toast} />} />
+              <Route path="/device/create" exact render={(props) => <CreateDeviceWithUserContext {...props} toast={toast} />} />
+              <Route path="/device/all" exact render={(props) => <AllDevicesWithUserContext {...props} toast={toast} />} />
               <Route component={NotFound} />
             </Switch>
           </UserProvider>
