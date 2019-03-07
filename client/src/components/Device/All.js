@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import DeviceService from '../../services/device';
+import './All.css';
 
 class AllDevices extends Component {
   constructor(props) {
@@ -29,25 +30,39 @@ class AllDevices extends Component {
     return (
       <div className="container">
         <h1>All Devices</h1>
-        <div class="row">
+        <div className="row">
           {
             this.state.devices && this.state.devices.length > 0 ?
-              this.state.devices.map(device => (
-                <div class="col-sm-6 col-md-3">
-                  <div class="thumbnail">
-                    <img src={device.imageUrls[device.imageUrls.length - 1]} alt={device.name} />
-                    <div class="caption">
-                      <h3>{device.name}</h3>
-                      <h5>{device.cat}</h5>
-                      <p>{device.description}</p>
-                      <p>
-                        <a href="#" class="btn btn-primary" role="button">Details</a>
-                        <a href="#" class="btn btn-default" role="button">Unknown</a>
-                      </p>
+              this.state.devices.map(device => {
+                const nameLength = 30;
+                let slicedName = device.name.split('').slice(0, nameLength);
+                if (device.name.length > nameLength) {
+                  slicedName.push('...');
+                }
+
+                const descriptionLength = 80;
+                let slicedDescription = device.description.split('').slice(0, descriptionLength);
+                if (device.description.length > descriptionLength) {
+                  slicedDescription.push('...');
+                }
+
+                return (
+                  <div className="col-sm-6 col-md-3">
+                    <div className="thumbnail">
+                      <img src={device.imageUrls[0]} alt={device.name} />
+                      <div className="caption">
+                        <h3>{slicedName.join('')}</h3>
+                        <h5>{device.cat}</h5>
+                        <p>{slicedDescription.join('')}</p>
+                        <p>
+                          <a href="#" className="btn btn-primary" role="button">Details</a>
+                          <a href="#" className="btn btn-default" role="button">Unknown</a>
+                        </p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              )) :
+                )
+              }) :
               null
           }
         </div>
