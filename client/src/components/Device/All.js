@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import DeviceService from '../../services/device';
 import './All.css';
 
@@ -54,7 +54,7 @@ class AllDevices extends Component {
                         <h3>{slicedName.join('')}</h3>
                         <p>{slicedDescription.join('')}</p>
                         <p>
-                          <a href="#" className="btn btn-primary" role="button">Details</a>
+                          <Link to={`/device/${device._id}`} className="btn btn-primary" role="button">Details</Link>
                           <a href="#" className="btn btn-default" role="button">Unknown</a>
                         </p>
                       </div>

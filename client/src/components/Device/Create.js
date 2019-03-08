@@ -67,7 +67,7 @@ class CreateDevice extends Component {
   }
 
   render() {
-    if (this.state.hasFetched) {
+    if ((!this.props.user || (this.props.user && !this.props.user.roles.includes('Admin'))) || this.state.hasSubmitted) {
       return <Redirect to="/" />;
     }
 

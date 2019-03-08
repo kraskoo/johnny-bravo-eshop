@@ -2,7 +2,7 @@ const express = require('express');
 const router = new express.Router();
 const Session = require('../models/Session');
 const User = require('../models/User');
-const messages = require('../services/messages').session;
+const { common: commonMessages, session: messages } = require('../services/messages');
 const hash = require('../services/hash');
 
 router.post('/create', (req, res) => {
@@ -39,7 +39,7 @@ router.post('/create', (req, res) => {
   } else {
     return res.status(400).json({
       success: false,
-      message: messages.parametersMissing
+      message: commonMessages.requiredParametes
     });
   }
 });
@@ -66,6 +66,7 @@ router.post('/get', (req, res) => {
               user: { username: user.username, email: user.email, roles: user.roles }
             });
           }
+
           return res.status(200).json({
             success: true,
             message: messages.sessionExists,
@@ -88,7 +89,7 @@ router.post('/get', (req, res) => {
   } else {
     return res.status(400).json({
       success: false,
-      message: messages.parametersMissing
+      message: commonMessages.requiredParametes
     });
   }
 });
@@ -123,7 +124,7 @@ router.post('/remove', (req, res) => {
   } else {
     return res.status(400).json({
       success: false,
-      message: messages.parametersMissing
+      message: commonMessages.requiredParametes
     });
   }
 });

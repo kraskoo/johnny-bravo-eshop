@@ -2,7 +2,7 @@ const express = require('express');
 const router = new express.Router;
 const Device = require('../models/Device');
 const Category = require('../models/Category');
-const messages = require('../services/messages').device;
+const { common: commonMessages, device: messages } = require('../services/messages');
 
 router.post('/create', (req, res) => {
   const body = req.body;
@@ -15,7 +15,7 @@ router.post('/create', (req, res) => {
         c.save().then(() => {
           return res.status(200).json({
             success: true,
-            message: 'Successfully created device!'
+            message: messages.createdDevice
           });
         }).catch(error => {
           return res.status(400).json({
@@ -38,7 +38,7 @@ router.post('/create', (req, res) => {
   } else {
     return res.status(400).json({
       success: false,
-      message: 'Request should have body!'
+      message: commonMessages.requiredBody
     });
   }
 });
@@ -53,7 +53,7 @@ router.get('/delete/:id', (req, res) => {
         Device.findByIdAndRemove(id).then(() => {
           return res.status(200).json({
             success: true,
-            message: 'Successfully deleted device!'
+            message: messages.deletedDevice
           });
         }).catch(error => {
           return res.status(400).json({
@@ -76,7 +76,7 @@ router.get('/delete/:id', (req, res) => {
   } else {
     return res.status(400).json({
       success: false,
-      message: 'Request should have parameters!'
+      message: commonMessages.requiredParametes
     });
   }
 });
@@ -94,6 +94,30 @@ router.get('/all', (req, res) => {
       message: error.message
     });
   });
+});
+
+router.get('/get/:id', (req, res) => {
+  const params = req.params;
+  if (params) {
+    const { id } = params;
+    Device.findById(id).then(device => {
+      return res.status(200).json({
+        success: true,
+        message: messages.fetchedDevice,
+        device
+      });
+    }).catch(error => {
+      return res.status(400).json({
+        success: false,
+        message: error.message
+      });
+    })
+  } else {
+    return res.status(400).json({
+      success: false,
+      message: commonMessages.requiredParametes
+    });
+  }
 });
 
 module.exports = router;

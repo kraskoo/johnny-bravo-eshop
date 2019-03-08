@@ -1,7 +1,7 @@
 const express = require('express');
 const router = new express.Router;
 const Category = require('../models/Category');
-const messages = require('../services/messages').category;
+const { common: commonMessages, category: messages } = require('../services/messages');
 
 router.post('/create', (req, res) => {
   const body = req.body;
@@ -35,7 +35,7 @@ router.get('/edit/:id/:newName', (req, res) => {
       catergory.save().then(() => {
         return res.status(200).json({
           success: true,
-          message: `Successfully edited category ${catergory.name}!`
+          message: messages.editedCategory(catergory)
         });
       }).catch(error => {
         return res.status(400).json({
@@ -52,7 +52,7 @@ router.get('/edit/:id/:newName', (req, res) => {
   } else {
     return res.status(400).json({
       success: false,
-      message: 'Request should parameters!'
+      message: commonMessages.requiredParametes
     });
   }
 });
@@ -61,7 +61,7 @@ router.get('/all', (req, res) => {
   Category.find({}).then(categories => {
     return res.status(200).json({
       success: true,
-      message: 'Successfully fetched all categories!',
+      message: messages.fetchedCategories,
       categories
     });
   }).catch(error => {

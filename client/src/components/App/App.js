@@ -14,6 +14,7 @@ import CreateCategory from '../Category/Create';
 import AllCategories from '../Category/All';
 import CreateDevice from '../Device/Create';
 import AllDevices from '../Device/All';
+import DeviceDetails from '../Device/Details';
 
 import { UserProvider, UserConsumer } from '../../contexts/UserContext';
 
@@ -29,6 +30,7 @@ const CreateCategoryWithUserContext = withConsumer(CreateCategory, UserConsumer)
 const AllCategoriesWithUserContext = withConsumer(AllCategories, UserConsumer);
 const CreateDeviceWithUserContext = withConsumer(CreateDevice, UserConsumer);
 const AllDevicesWithUserContext = withConsumer(AllDevices, UserConsumer);
+const DeviceDetailsWithUserContext = withConsumer(DeviceDetails, UserConsumer);
 
 function ToastCloseButton() {
   return <span>&otimes;</span>;
@@ -51,6 +53,7 @@ class AppBase extends Component {
               <Route path="/category/all" exact render={(props) => <AllCategoriesWithUserContext {...props} toast={toast} />} />
               <Route path="/device/create" exact render={(props) => <CreateDeviceWithUserContext {...props} toast={toast} />} />
               <Route path="/device/all" exact render={(props) => <AllDevicesWithUserContext {...props} toast={toast} />} />
+              <Route path="/device/:id" render={(props) => <DeviceDetailsWithUserContext {...props} toast={toast} />} />
               <Route component={NotFound} />
             </Switch>
           </UserProvider>
