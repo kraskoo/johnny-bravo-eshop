@@ -31,12 +31,11 @@ class DeviceDetails extends Component {
     }
 
     const device = this.state.device;
-    console.log(device);
-
     return (
       <div className="container">
         <h1>Name: {device.name}</h1>
-        <p><h3>Description:</h3> {device.description}</p>
+        <h3>Description:</h3>
+        <p>{device.description}</p>
         <h3>Characteristics:</h3>
         <ul>
           {device.characteristics.map((c, i) => (<li key={`${device._id}characteristic${i}`}>{c}</li>))}

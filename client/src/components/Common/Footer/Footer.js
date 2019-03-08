@@ -4,13 +4,14 @@ import './Footer.css';
 class Footer extends Component {
   constructor(props) {
     super(props);
+    this.state = { documentHeight: 0 };
     this.setFooterPosition = this.setFooterPosition.bind(this);
+    this.updateDimension = this.updateDimension.bind(this);
   }
 
   setFooterPosition() {
-    const body = document.body;
     const footer = document.getElementsByTagName('footer')[0];
-    if (body.offsetHeight < window.screen.height) {
+    if (this.state.documentHeight < window.screen.height) {
       footer.style.position = 'fixed';
       footer.style.bottom = '0';
     } else {
@@ -18,11 +19,26 @@ class Footer extends Component {
     }
   }
 
-  componentDidUpdate() {
-    this.setFooterPosition();
+  updateDimension() {
+    this.setState({ documentHeight: document.body.offsetHeight }, this.setFooterPosition);
+  }
+
+  componentWillMount() {
+    this.updateDimension();
+  }
+
+  componentDidMount() {
+    window.addEventListener('resize', this.updateDimension);
+    document.addEventListener('scroll', this.updateDimension);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.updateDimension);
+    document.removeEventListener('scroll', this.updateDimension);
   }
 
   render() {
+    setTimeout(this.updateDimension, 555);
     return (
       <footer className="footer">
         <div className="container">
