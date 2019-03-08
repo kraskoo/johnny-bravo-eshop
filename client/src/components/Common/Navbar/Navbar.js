@@ -1,6 +1,5 @@
 import React, { Fragment, Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Navbar as NavBar, Nav, NavDropdown } from 'react-bootstrap';
 import SessionService from '../../../services/session';
 import './Navbar.css';
 
@@ -8,7 +7,6 @@ class Navbar extends Component {
   constructor(props) {
     super(props);
     this.handleLogout = this.handleLogout.bind(this);
-    this.onClickListItem = this.onClickListItem.bind(this);
   }
 
   handleLogout(e) {
@@ -33,55 +31,66 @@ class Navbar extends Component {
       this.props.toast.error('jwtString or email is missing');
     }
   }
-  
-  // This function fix incorrect behavior of NavDropdown
-  onClickListItem(id) {
-    document.getElementById(id).click();
-  }
 
   render() {
     return (
-      <NavBar>
-        <NavBar.Header>
-          <NavBar.Brand>
+      <nav className="navbar navbar-default">
+        <div className="container-fluid">
+          <div className="navbar-header">
+            <button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar-collapsed" aria-expanded="false">
+              <span className="sr-only">Toggle navigation</span>
+              <span className="icon-bar"></span>
+              <span className="icon-bar"></span>
+              <span className="icon-bar"></span>
+            </button>
             <NavLink to="/" className="navbar-brand">Home</NavLink>
-          </NavBar.Brand>
-          <NavBar.Toggle />
-        </NavBar.Header>
-        <NavBar.Collapse>
-          <Nav>
-            {
-              this.props.user ?
-                <Fragment>
-                  <li><NavLink to="/category/all">All Category</NavLink></li>
-                  <li><NavLink to="/device/all">All Devices</NavLink></li>
-                </Fragment> :
-                null
-            }
-          </Nav>
-          <Nav pullRight>
-          {
-            this.props.user ?
-              <NavDropdown title={`Hello, ${this.props.user.username}!`} id="user-dropdown">
-                  {
-                    this.props.user.roles.includes('Admin') ?
-                      <Fragment>
-                        <li onClick={() => this.onClickListItem('user-dropdown')}><NavLink to="/user/setadminrole">Set Admin Role</NavLink></li>
-                        <li onClick={() => this.onClickListItem('user-dropdown')}><NavLink to="/category/create">Create Category</NavLink></li>
-                        <li onClick={() => this.onClickListItem('user-dropdown')}><NavLink to="/device/create">Create Device</NavLink></li>
-                        <li role="separator" className="divider"></li>
-                      </Fragment> : null
-                  }
-                  <li><span id="logout" onClick={this.handleLogout}>Logout</span></li>
-              </NavDropdown> :
-              <Fragment>
-                <li><NavLink to="/user/register">Register</NavLink></li>
-                <li><NavLink to="/user/login">Login</NavLink></li>
-              </Fragment>
-          }
-          </Nav>
-        </NavBar.Collapse>
-      </NavBar>
+          </div>
+          <div className="collapse navbar-collapse" id="navbar-collapsed">
+            <ul className="nav navbar-nav">
+              {
+                this.props.user ?
+                  <Fragment>
+                    <li><NavLink to="/category/all">All Category</NavLink></li>
+                    <li><NavLink to="/device/all">All Devices</NavLink></li>
+                  </Fragment> :
+                  null
+              }
+            </ul>
+            <ul className="nav navbar-nav navbar-right">
+              {
+                this.props.user ?
+                  (
+                    <Fragment>
+                      <ul className="nav navbar-nav">
+                        <li className="dropdown">
+                          <span className="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hello, {this.props.user.username}!<span className="caret"></span></span>
+                          <ul className="dropdown-menu">
+                            {
+                              this.props.user.roles.includes('Admin') ?
+                              <Fragment>
+                                <li><NavLink to="/user/setadminrole">Set Admin Role</NavLink></li>
+                                <li><NavLink to="/category/create">Create Category</NavLink></li>
+                                <li><NavLink to="/device/create">Create Device</NavLink></li>
+                                <li role="separator" className="divider"></li>
+                              </Fragment> : null
+                            }
+                            <li><span id="logout" onClick={this.handleLogout}>Logout</span></li>
+                          </ul>
+                        </li>
+                      </ul>
+                    </Fragment>
+                  ) :
+                  (
+                    <Fragment>
+                      <li><NavLink to="/user/register">Register</NavLink></li>
+                      <li><NavLink to="/user/login">Login</NavLink></li>
+                    </Fragment>
+                  )
+              }
+            </ul>
+          </div>
+        </div>
+      </nav>
     );
   }
 }
