@@ -30,13 +30,17 @@ const AllCategoriesWithUserContext = withConsumer(AllCategories, UserConsumer);
 const CreateDeviceWithUserContext = withConsumer(CreateDevice, UserConsumer);
 const AllDevicesWithUserContext = withConsumer(AllDevices, UserConsumer);
 
+function ToastCloseButton() {
+  return <span>&otimes;</span>;
+}
+
 class AppBase extends Component {
   render() {
     return (
       <Router>
         <Fragment>
           <UserProvider value={{ user: this.props.user, updateUser: this.props.updateUser }}>
-            <ToastContainer autoClose={3000} hideProgressBar={true} closeButton={<span>&otimes;</span>} />
+            <ToastContainer autoClose={3000} hideProgressBar={true} closeButton={<ToastCloseButton />} />
             <NavbarWithUserContext toast={toast} />
             <Switch>
               <Route path="/" exact render={(props) => <HomeWithUserConsumer {...props} toast={toast} />} />

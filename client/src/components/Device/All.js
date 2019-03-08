@@ -47,7 +47,7 @@ class AllDevices extends Component {
                 }
 
                 return (
-                  <div className="col-sm-6 col-md-3">
+                  <div className="col-sm-6 col-md-3" key={device._id}>
                     <div className="thumbnail">
                       <img src={device.imageUrls[0]} alt={device.name} />
                       <div className="caption">
