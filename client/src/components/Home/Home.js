@@ -17,22 +17,22 @@ class Home extends Component {
           </ol>          
           <div className="carousel-inner">
             <div className="item active">
-              <img src="carousel/1.png" alt="1" />
+              <img src="carousel/1.png" alt="Johnny" />
             </div>
             <div className="item">
-              <img src="carousel/2.png" alt="2" />
+              <img src="carousel/2.png" alt="Johnny" />
             </div>
             <div className="item">
-              <img src="carousel/3.png" alt="3" />
+              <img src="carousel/3.png" alt="Johnny" />
             </div>
             <div className="item">
-              <img src="carousel/4.png" alt="4" />
+              <img src="carousel/4.png" alt="Johnny" />
             </div>
             <div className="item">
-              <img src="carousel/5.png" alt="5" />
+              <img src="carousel/5.png" alt="Johnny" />
             </div>
             <div className="item">
-              <img src="carousel/6.png" alt="6" />
+              <img src="carousel/6.png" alt="Johnny" />
             </div>
           </div>
           

@@ -3,6 +3,7 @@ import EditDevice from "./Edit";
 import DeleteDevice from "./Delete";
 import AllDevices from "./All";
 import DeviceDetails from "./Details";
+import BuyDevices from "./Buy";
 import { UserConsumer } from "../../contexts/UserContext";
 import withConsumer from "../../hocs/withConsumer";
 
@@ -11,11 +12,13 @@ const EditDeviceWithUserContext = withConsumer(EditDevice, UserConsumer);
 const DeleteDeviceWithUserContext = withConsumer(DeleteDevice, UserConsumer);
 const AllDevicesWithUserContext = withConsumer(AllDevices, UserConsumer);
 const DeviceDetailsWithUserContext = withConsumer(DeviceDetails, UserConsumer);
+const BuyDevicesWithUserContext = withConsumer(BuyDevices, UserConsumer);
 
 export {
   CreateDeviceWithUserContext,
   EditDeviceWithUserContext,
   DeleteDeviceWithUserContext,
   AllDevicesWithUserContext,
-  DeviceDetailsWithUserContext
+  DeviceDetailsWithUserContext,
+  BuyDevicesWithUserContext
 };

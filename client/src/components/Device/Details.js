@@ -27,10 +27,6 @@ class DeviceDetails extends Component {
   }
 
   render() {
-    if (!this.state.device) {
-      return <div className="container"></div>;
-    }
-
     if (this.state.isLoading) {
       return Loading(this.state.isLoading);
     }

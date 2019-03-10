@@ -5,14 +5,8 @@ import 'react-toastify/dist/ReactToastify.css';
 import { UserProvider } from '../../contexts/UserContext';
 import withTokenGetter from '../../hocs/withTokenGetter';
 
-import {
-  HomeWithUserConsumer as Home,
-  NotFound
-} from './Pages';
-import {
-  NavbarWithUserContext as Navbar,
-  Footer
-} from '../Common/Commons';
+import { Home, NotFound } from './Pages';
+import { NavbarWithUserContext as Navbar, Footer } from '../Common/Commons';
 import {
   LoginWithUserConsumer as Login,
   RegisterWithUserConsumer as Register,
@@ -23,7 +17,8 @@ import {
   CreateDeviceWithUserContext as CreateDevice,
   EditDeviceWithUserContext as EditDevice,
   DeleteDeviceWithUserContext as DeleteDevice,
-  DeviceDetailsWithUserContext as DeviceDetails
+  DeviceDetailsWithUserContext as DeviceDetails,
+  BuyDevicesWithUserContext as BuyDevices
 } from '../Device/Devices';
 import {
   CreateCategoryWithUserContext as CreateCategory,
@@ -56,6 +51,7 @@ class AppBase extends Component {
               <Route path="/device/create" exact render={(props) => <CreateDevice {...props} toast={toast} />} />
               <Route path="/device/edit/:id" exact render={(props) => <EditDevice {...props} toast={toast} />} />
               <Route path="/device/delete/:id" exact render={(props) => <DeleteDevice {...props} toast={toast} />} />
+              <Route path="/device/buy/:id" exact render={(props) => <BuyDevices {...props} toast={toast} />} />
               <Route path="/device/all" exact render={(props) => <AllDevices {...props} toast={toast} />} />
               <Route path="/device/:id" exact render={(props) => <DeviceDetails {...props} toast={toast} />} />
               <Route component={NotFound} />

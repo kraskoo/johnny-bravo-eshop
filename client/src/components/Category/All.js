@@ -6,7 +6,7 @@ import Loading from '../Common/Loading';
 class AllCategories extends Component {
   constructor(props) {
     super(props);
-    this.state = { tags: null, isLoading: true };
+    this.state = { categories: null, isLoading: true };
   }
 
   componentDidMount() {
@@ -14,7 +14,7 @@ class AllCategories extends Component {
     if (this.props.user) {
       categoryService.getAll().then(body => {
       if (body.success) {
-        this.setState({ tags: body.categories, isLoading: false });
+        this.setState({ categories: body.categories, isLoading: false });
       } else {
         this.props.toast.error(body.message);
       }
@@ -29,6 +29,10 @@ class AllCategories extends Component {
       return <Redirect to="/" />;
     }
 
+    if (this.state.isLoading) {
+      return Loading(this.state.isLoading);
+    }
+
     return (
       <div className="container">
         <div className="col-md-6">
@@ -36,15 +40,13 @@ class AllCategories extends Component {
           <table className="table table-hover">
             <tbody>
             {
-              !this.state.isLoading ?
-                this.state.tags.map(category => (
-                  <tr key={category._id}>
-                    <td>{category.name}</td>
-                    <td><Link to={`/category/edit/${category._id}`} role="button" className="btn btn-warning">Edit</Link></td>
-                    <td><Link to={`/category/delete/${category._id}`} role="button" className="btn btn-danger">Delete</Link></td>
-                  </tr>
-                )) :
-                <tr><td>{Loading(this.state.isLoading)}</td></tr>
+              this.state.categories.map(category => (
+                <tr key={category._id}>
+                  <td>{category.name}</td>
+                  <td><Link to={`/category/edit/${category._id}`} role="button" className="btn btn-warning">Edit</Link></td>
+                  <td><Link to={`/category/delete/${category._id}`} role="button" className="btn btn-danger">Delete</Link></td>
+                </tr>
+              ))
             }
             </tbody>
           </table>

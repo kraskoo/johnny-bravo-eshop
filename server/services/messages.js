@@ -34,6 +34,8 @@ module.exports = {
     fetchedDevice: 'Successfully fetched device!',
     createdDevice: 'Successfully created device!',
     editedDevice: 'Successfully edit device!',
-    deletedDevice: 'Successfully deleted device!'
+    deletedDevice: 'Successfully deleted device!',
+    notEnoughDevices: 'Sorry, not enough devices!',
+    buyedDevices: (count) => `Successfully buyed ${count} devices!`
   }
 };

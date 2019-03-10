@@ -194,7 +194,45 @@ router.get('/get/:id', (req, res) => {
         success: false,
         message: error.message
       });
-    })
+    });
+  } else {
+    return res.status(400).json({
+      success: false,
+      message: commonMessages.requiredParametes
+    });
+  }
+});
+
+router.get('/buy/:id/:count', (req, res) => {
+  const params = req.params;
+  if (params) {
+    const { id, count } = params;
+    Device.findById(id).then(device => {
+      if (device.quantity < count) {
+        return res.status(400).json({
+          success: false,
+          message: messages.notEnoughDevices
+        });
+      }
+
+      device.quantity -= count;
+      device.save().then(() => {
+        return res.status(200).json({
+          success: true,
+          message: messages.buyedDevices(count)
+        });
+      }).catch(error => {
+        return res.status(400).json({
+          success: false,
+          message: error.message
+        });
+      });
+    }).catch(error => {
+      return res.status(400).json({
+        success: false,
+        message: error.message
+      });
+    });
   } else {
     return res.status(400).json({
       success: false,
