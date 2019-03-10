@@ -2,33 +2,35 @@ import React, { Component, Fragment } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { UserProvider } from '../../contexts/UserContext';
+import withTokenGetter from '../../hocs/withTokenGetter';
 
 import {
-  HomeWithUserConsumer,
+  HomeWithUserConsumer as Home,
   NotFound
 } from './Pages';
 import {
-  NavbarWithUserContext,
+  NavbarWithUserContext as Navbar,
   Footer
 } from '../Common/Commons';
 import {
-  LoginWithUserConsumer,
-  RegisterWithUserConsumer,
-  SetAdminRoleWithUserConsumer
+  LoginWithUserConsumer as Login,
+  RegisterWithUserConsumer as Register,
+  SetAdminRoleWithUserConsumer as SetAdminRole
 } from '../User/Users';
 import {
-  AllDevicesWithUserContext,
-  CreateDeviceWithUserContext,
-  DeviceDetailsWithUserContext
+  AllDevicesWithUserContext as AllDevices,
+  CreateDeviceWithUserContext as CreateDevice,
+  EditDeviceWithUserContext as EditDevice,
+  DeleteDeviceWithUserContext as DeleteDevice,
+  DeviceDetailsWithUserContext as DeviceDetails
 } from '../Device/Devices';
 import {
-  CreateCategoryWithUserContext,
-  AllCategoriesWithUserContext
+  CreateCategoryWithUserContext as CreateCategory,
+  EditCategoryWithUserContext as EditCategory,
+  DeleteCategoryWithUserContext as DeleteCategory,
+  AllCategoriesWithUserContext as AllCategories
 } from '../Category/Categories';
-
-import { UserProvider } from '../../contexts/UserContext';
-
-import withTokenGetter from '../../hocs/withTokenGetter';
 
 const ToastCloseButton = () => {
   return <span>&otimes;</span>;
@@ -41,17 +43,21 @@ class AppBase extends Component {
         <Fragment>
           <UserProvider value={{ user: this.props.user, updateUser: this.props.updateUser }}>
             <ToastContainer autoClose={3000} hideProgressBar={true} closeButton={<ToastCloseButton />} />
-            <NavbarWithUserContext toast={toast} />
+            <Navbar toast={toast} />
             <Switch>
-              <Route path="/" exact render={(props) => <HomeWithUserConsumer {...props} toast={toast} />} />
-              <Route path="/user/login" exact render={(props) => <LoginWithUserConsumer {...props} toast={toast} />} />
-              <Route path="/user/register" exact render={(props) => <RegisterWithUserConsumer {...props} toast={toast} />} />
-              <Route path="/user/setadminrole" exact render={(props) => <SetAdminRoleWithUserConsumer {...props} toast={toast} />} />
-              <Route path="/category/create" exact render={(props) => <CreateCategoryWithUserContext {...props} toast={toast} />} />
-              <Route path="/category/all" exact render={(props) => <AllCategoriesWithUserContext {...props} toast={toast} />} />
-              <Route path="/device/create" exact render={(props) => <CreateDeviceWithUserContext {...props} toast={toast} />} />
-              <Route path="/device/all" exact render={(props) => <AllDevicesWithUserContext {...props} toast={toast} />} />
-              <Route path="/device/:id" render={(props) => <DeviceDetailsWithUserContext {...props} toast={toast} />} />
+              <Route path="/" exact render={(props) => <Home {...props} toast={toast} />} />
+              <Route path="/user/login" exact render={(props) => <Login {...props} toast={toast} />} />
+              <Route path="/user/register" exact render={(props) => <Register {...props} toast={toast} />} />
+              <Route path="/user/setadminrole" exact render={(props) => <SetAdminRole {...props} toast={toast} />} />
+              <Route path="/category/create" exact render={(props) => <CreateCategory {...props} toast={toast} />} />
+              <Route path="/category/edit/:id" exact render={(props) => <EditCategory {...props} toast={toast} />} />
+              <Route path="/category/delete/:id" exact render={(props) => <DeleteCategory {...props} toast={toast} />} />
+              <Route path="/category/all" exact render={(props) => <AllCategories {...props} toast={toast} />} />
+              <Route path="/device/create" exact render={(props) => <CreateDevice {...props} toast={toast} />} />
+              <Route path="/device/edit/:id" exact render={(props) => <EditDevice {...props} toast={toast} />} />
+              <Route path="/device/delete/:id" exact render={(props) => <DeleteDevice {...props} toast={toast} />} />
+              <Route path="/device/all" exact render={(props) => <AllDevices {...props} toast={toast} />} />
+              <Route path="/device/:id" exact render={(props) => <DeviceDetails {...props} toast={toast} />} />
               <Route component={NotFound} />
             </Switch>
           </UserProvider>

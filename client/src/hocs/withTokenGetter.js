@@ -6,8 +6,15 @@ function withTokenGetter(WrappedComponent) {
     constructor(props) {
       super(props);
       this.state = { user: null };
-      this.onExistingToken = this.onExistingToken.bind(this);
       this.updateUser = this.updateUser.bind(this);
+      this.onExistingToken = this.onExistingToken.bind(this);
+    }
+  
+    componentDidMount() {
+      const token = sessionStorage.getItem('token');
+      if (token && !this.state.user) {
+        this.onExistingToken(token);
+      }
     }
 
     updateUser(user) {
@@ -22,13 +29,6 @@ function withTokenGetter(WrappedComponent) {
           this.updateUser({ ...body.user, token: body.token });
         }
       });
-    }
-  
-    componentDidMount() {
-      const token = sessionStorage.getItem('token');
-      if (token && !this.state.user) {
-        this.onExistingToken(token);
-      }
     }
 
     render() {

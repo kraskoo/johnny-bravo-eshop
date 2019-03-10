@@ -47,11 +47,15 @@ class Navbar extends Component {
           </div>
           <div className="collapse navbar-collapse" id="navbar-collapsed">
             <ul className="nav navbar-nav">
+              <li><NavLink to="/device/all">All Devices</NavLink></li>
               {
                 this.props.user ?
                   <Fragment>
-                    <li><NavLink to="/category/all">All Category</NavLink></li>
-                    <li><NavLink to="/device/all">All Devices</NavLink></li>
+                    {
+                      this.props.user.roles.includes('Admin') ?
+                        <li><NavLink to="/category/all">All Category</NavLink></li> :
+                        null
+                    }
                   </Fragment> :
                   null
               }

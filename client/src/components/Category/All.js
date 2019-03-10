@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import CategoryService from '../../services/category';
+import Loading from '../Common/Loading';
 
 class AllCategories extends Component {
   constructor(props) {
     super(props);
-    this.state = { tags: null };
+    this.state = { tags: null, isLoading: true };
   }
 
   componentDidMount() {
@@ -13,8 +14,7 @@ class AllCategories extends Component {
     if (this.props.user) {
       categoryService.getAll().then(body => {
       if (body.success) {
-        this.setState({ tags: body.categories });
-        this.props.toast.success(body.message);
+        this.setState({ tags: body.categories, isLoading: false });
       } else {
         this.props.toast.error(body.message);
       }
@@ -25,21 +25,29 @@ class AllCategories extends Component {
   }
 
   render() {
-    if (!this.props.user) {
-      return <Redirect to="/" />
+    if (!this.props.user || (this.props.user && !this.props.user.roles.includes('Admin'))) {
+      return <Redirect to="/" />;
     }
 
     return (
       <div className="container">
         <div className="col-md-6">
           <h1>All tags</h1>
-          {
-            this.state.tags && this.state.tags.length > 0 ?
-              this.state.tags.map(tag => (
-                <p key={tag._id}>{tag.name}</p>
-              )) :
-              null
-          }
+          <table className="table table-hover">
+            <tbody>
+            {
+              !this.state.isLoading ?
+                this.state.tags.map(category => (
+                  <tr key={category._id}>
+                    <td>{category.name}</td>
+                    <td><Link to={`/category/edit/${category._id}`} role="button" className="btn btn-warning">Edit</Link></td>
+                    <td><Link to={`/category/delete/${category._id}`} role="button" className="btn btn-danger">Delete</Link></td>
+                  </tr>
+                )) :
+                <tr><td>{Loading(this.state.isLoading)}</td></tr>
+            }
+            </tbody>
+          </table>
         </div>
       </div>
     );

@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
-import CategoryService from '../../services/category';
 import DeviceService from '../../services/device';
+import Loading from '../Common/Loading';
 
-class CreateDevice extends Component {
+class DeleteDevice extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -14,24 +14,29 @@ class CreateDevice extends Component {
       quantity: '',
       price: '',
       imageUrls: '',
-      categories: null,
-      hasSubmitted: false
+      hasSubmitted: false,
+      isLoading: true
     };
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
-    const categoryService = new CategoryService();
-    categoryService.getAll().then(body => {
-      if (body.success) {
-        if (body.categories.length > 0) {
-          this.setState({ category: body.categories[0]._id });
-        }
-
-        this.setState({ categories: body.categories });
+    const deviceService = new DeviceService();
+    const id = this.props.match.params.id;
+    deviceService.get(id).then(deviceBody => {
+      if (deviceBody.success) {
+        this.setState({
+          name: deviceBody.device.name,
+          description: deviceBody.device.description,
+          characteristics: deviceBody.device.characteristics.join('\n'),
+          category: deviceBody.device.category,
+          quantity: deviceBody.device.quantity,
+          price: deviceBody.device.price,
+          imageUrls: deviceBody.device.imageUrls.join(', '),
+          isLoading: false
+        });
       } else {
-        this.props.toast.error(body.message);
+        this.props.toast.error(deviceBody.message);
       }
     }).catch(error => {
       this.props.toast.error(error.message);
@@ -40,20 +45,12 @@ class CreateDevice extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
-    const bodyToSend = {
-      name: this.state.name,
-      description: this.state.description,
-      characteristics: this.state.characteristics.split(/\r?\n/g),
-      category: this.state.category,
-      quantity: this.state.quantity,
-      price: this.state.price,
-      imageUrls: this.state.imageUrls.split(', '),
-    };
     const deviceService = new DeviceService();
-    deviceService.create(bodyToSend).then(body => {
+    const id = this.props.match.params.id;
+    deviceService.delete(id).then(body => {
       if (body.success) {
         this.setState({ hasSubmitted: true });
-        this.props.toast.success(body.message);
+        this.props.toast.error(body.message);
       } else {
         this.props.toast.error(body.message);
       }
@@ -62,19 +59,19 @@ class CreateDevice extends Component {
     });
   }
 
-  handleChange({ target }) {
-    this.setState({ [target.name]: target.value });
-  }
-
   render() {
     if ((!this.props.user || (this.props.user && !this.props.user.roles.includes('Admin'))) || this.state.hasSubmitted) {
       return <Redirect to="/" />;
     }
 
+    if (this.state.isLoading) {
+      return Loading(this.state.isLoading);
+    }
+    
     return (
       <div className="container">
         <div className="col-md-6">
-          <h1>Create Device</h1>
+          <h1>Edit Device</h1>
           <form onSubmit={this.handleSubmit}>
             <div className="input-group">
               <span className="input-group-addon" id="name-addon">Name</span>
@@ -82,9 +79,9 @@ class CreateDevice extends Component {
                 type="text"
                 name="name"
                 className="form-control"
-                placeholder="Name"
                 aria-describedby="name-addon"
-                onChange={this.handleChange} />
+                value={this.state.name}
+                readOnly />
             </div>
             <div className="input-group">
               <span className="input-group-addon" id="description-addon">Description</span>
@@ -92,9 +89,9 @@ class CreateDevice extends Component {
                 type="text"
                 name="description"
                 className="form-control"
-                placeholder="Description"
                 aria-describedby="description-addon"
-                onChange={this.handleChange} />
+                value={this.state.description}
+                readOnly />
             </div>
             <div className="input-group">
               <span className="input-group-addon" id="characteristics-addon">Characteristics</span>
@@ -102,9 +99,9 @@ class CreateDevice extends Component {
                 type="text"
                 name="characteristics"
                 className="form-control"
-                placeholder="Characteristics separated by new line"
                 aria-describedby="characteristics-addon"
-                onChange={this.handleChange}>
+                value={this.state.characteristics} 
+                readOnly>
               </textarea>
             </div>
             <div className="input-group">
@@ -112,11 +109,9 @@ class CreateDevice extends Component {
               <select name="category" 
                 className="form-control"
                 aria-describedby="category-addon"
-                onChange={this.handleChange}>
+                readOnly>
                 {
-                  this.state.categories ?
-                    this.state.categories.map(category => (<option value={category._id} key={category._id}>{category.name}</option>)) :
-                    null
+                  <option value={this.state.category._id}>{this.state.category.name}</option>
                 }
               </select>
             </div>
@@ -126,11 +121,9 @@ class CreateDevice extends Component {
                 type="number"
                 name="quantity"
                 className="form-control"
-                min="0"
-                max="1000"
-                placeholder="Quantity"
                 aria-describedby="quantity-addon"
-                onChange={this.handleChange} />
+                value={this.state.quantity}
+                readOnly />
             </div>
             <div className="input-group">
               <span className="input-group-addon" id="price-addon">Price</span>
@@ -138,11 +131,9 @@ class CreateDevice extends Component {
                 type="number"
                 name="price"
                 className="form-control"
-                min="1"
-                max="500000"
-                placeholder="Price"
                 aria-describedby="price-addon"
-                onChange={this.handleChange} />
+                value={this.state.price}
+                readOnly />
             </div>
             <div className="input-group">
               <span className="input-group-addon" id="imageUrls-addon">Image Urls</span>
@@ -150,14 +141,12 @@ class CreateDevice extends Component {
                 type="text"
                 name="imageUrls"
                 className="form-control"
-                min="1"
-                max="500000"
-                placeholder="Image Urls separated by comma and space"
                 aria-describedby="imageUrls-addon"
-                onChange={this.handleChange} />
+                value={this.state.imageUrls}
+                readOnly />
             </div>
             <div className="input-group">
-              <input type="submit" className="btn btn-default" value="Create" />
+              <input type="submit" className="btn btn-danger" value="Delete" />
             </div>
           </form>
         </div>
@@ -166,4 +155,4 @@ class CreateDevice extends Component {
   }
 }
 
-export default CreateDevice;
+export default DeleteDevice;

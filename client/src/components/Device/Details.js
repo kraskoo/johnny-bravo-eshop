@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import DeviceService from '../../services/device';
+import Loading from '../Common/Loading';
 
 const imageStyle = {
   maxWidth: '350px',
@@ -9,14 +10,14 @@ const imageStyle = {
 class DeviceDetails extends Component {
   constructor(props) {
     super(props);
-    this.state = { device: null };
+    this.state = { device: null, isLoading: true };
   }
 
   componentDidMount() {
     const deviceService = new DeviceService();
-    deviceService.getById(this.props.match.params.id).then(body => {
+    deviceService.get(this.props.match.params.id).then(body => {
       if (body.success) {
-        this.setState({ device: body.device });
+        this.setState({ device: body.device, isLoading: false });
       } else {
         this.props.toast.success(body.message)
       }
@@ -30,6 +31,10 @@ class DeviceDetails extends Component {
       return <div className="container"></div>;
     }
 
+    if (this.state.isLoading) {
+      return Loading(this.state.isLoading);
+    }
+
     const device = this.state.device;
     return (
       <div className="container">
@@ -41,7 +46,13 @@ class DeviceDetails extends Component {
           {device.characteristics.map((c, i) => (<li key={`${device._id}characteristic${i}`}>{c}</li>))}
         </ul>
         <p>Price: ${device.price}</p>
-        <small>Quantity: {device.quantity}</small> <br />
+        {
+          this.props.user && this.props.user.roles.includes('Admin') ?
+          <Fragment>
+            <small>Quantity: {device.quantity}</small> <br />
+          </Fragment> :
+          null
+        }
         {device.imageUrls.map((img, i) => (<img src={img} key={`${device._id}image${i}`} style={imageStyle} alt={device.name} />))}
       </div>
     );

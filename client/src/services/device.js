@@ -8,6 +8,7 @@ class DeviceService extends BaseService {
     this.createUrl = `${this.baseUrl}/create`;
     this.getAllUrl = `${this.baseUrl}/all`;
     this.getByIdUrl = `${this.baseUrl}/get`;
+    this.editUrl = `${this.baseUrl}/edit`;
     this.deleteUrl = `${this.baseUrl}/delete`;
   }
 
@@ -19,9 +20,14 @@ class DeviceService extends BaseService {
     return get(this.getAllUrl);
   }
 
-  getById(id) {
+  get(id) {
     const url = `${this.getByIdUrl}/${id}`;
     return get(url);
+  }
+
+  edit(id, body) {
+    const url = `${this.editUrl}/${id}`;
+    return post(url, body);
   }
 
   delete(id) {

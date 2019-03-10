@@ -3,17 +3,17 @@ import { Redirect } from 'react-router-dom';
 import CategoryService from '../../services/category';
 import Loading from '../Common/Loading';
 
-class EditCategory extends Component {
+class DeleteCategory extends Component {
   constructor(props) {
     super(props);
     this.state = { category: null, name: null, hasSubmitted: false, isLoading: true };
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleChange = this.handleChange.bind(this);
   }
 
   componentDidMount() {
     const categoryService = new CategoryService();
-    categoryService.get(this.props.match.params.id).then(body => {
+    const id = this.props.match.params.id;
+    categoryService.get(id).then(body => {
       if (body.success) {
         this.setState({ category: body.category, name: body.category.name, isLoading: false });
       } else {
@@ -27,7 +27,7 @@ class EditCategory extends Component {
   handleSubmit(e) {
     e.preventDefault();
     const categoryService = new CategoryService();
-    categoryService.edit(this.props.match.params.id, this.state.name).then(body => {
+    categoryService.delete(this.props.match.params.id).then(body => {
       if (body.success) {
         this.setState({ hasSubmitted: true });
         this.props.toast.success(body.message);
@@ -39,17 +39,13 @@ class EditCategory extends Component {
     });
   }
 
-  handleChange({ target }) {
-    this.setState({ [target.name]: target.value });
-  }
-
   render() {
     if ((!this.props.user || (this.props.user && !this.props.user.roles.includes('Admin'))) || this.state.hasSubmitted) {
       return <Redirect to="/" />;
     }
 
     if (this.state.isLoading) {
-      Loading(this.state.isLoading);
+      return Loading(this.state.isLoading);
     }
     
     return (
@@ -59,10 +55,10 @@ class EditCategory extends Component {
           <form onSubmit={this.handleSubmit}>
             <div className="input-group">
               <span className="input-group-addon" id="name-addon">Name</span>
-              <input type="text" name="name" className="form-control" placeholder="Name" aria-describedby="name-addon" onChange={this.handleChange} value={this.state.name} />
+              <input type="text" name="name" className="form-control" aria-describedby="name-addon" value={this.state.name} readOnly />
             </div>
             <div className="input-group">
-              <input type="submit" className="btn btn-warning" value="Edit" />
+              <input type="submit" className="btn btn-danger" value="Delete" />
             </div>
           </form>
         </div>
@@ -71,4 +67,4 @@ class EditCategory extends Component {
   }
 }
 
-export default EditCategory;
+export default DeleteCategory;

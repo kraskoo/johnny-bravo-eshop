@@ -25,17 +25,15 @@ module.exports = {
     createdCategory: 'Successfully create category!',
     requiredBody: 'Request should have body!',
     editedCategory: (catergory) => `Successfully edited category ${catergory.name}!`,
-    fetchedCategories: 'Successfully fetched all categories!'
-  },
-  tag: {
-    createdTag: 'Successfully created tag!',
-    requiredBody: 'Request should have body!',
-    fetchedTags: 'Successfully fetched all tags!'
+    fetchedCategories: 'Successfully fetched all categories!',
+    fetchedCategory: (category) => `Successfully fetched category ${category.name}`,
+    deletedCategory: (category) => `Successfully deleted category ${category.name}`
   },
   device: {
     fetchedDevices: 'Successfully fetched all devices!',
     fetchedDevice: 'Successfully fetched device!',
     createdDevice: 'Successfully created device!',
+    editedDevice: 'Successfully edit device!',
     deletedDevice: 'Successfully deleted device!'
   }
 };

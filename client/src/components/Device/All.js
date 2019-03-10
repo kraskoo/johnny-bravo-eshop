@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Redirect, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import DeviceService from '../../services/device';
 import Loading from '../Common/Loading';
 import './All.css';
 
-function DeviceBox(device) {
+function DeviceBox(device, user) {
   const nameLength = 30;
   let slicedName = device.name.split('').slice(0, nameLength);
   if (device.name.length > nameLength) {
@@ -28,6 +28,15 @@ function DeviceBox(device) {
             <Link to={`/device/${device._id}`} className="btn btn-primary" role="button">Details</Link>
             <a href="#" className="btn btn-default" role="button">Unknown</a>
           </p>
+          {
+            user && user.roles.includes('Admin') ?
+              <p>
+                <Link to={`/device/edit/${device._id}`} className="btn btn-warning" role="button">Edit</Link>
+                <Link to={`/device/delete/${device._id}`} className="btn btn-danger" role="button">Delete</Link>
+              </p> :
+              null
+          }
+          <p>Category: {device.category.name}</p>
         </div>
       </div>
     </div>
@@ -44,6 +53,11 @@ class AllDevices extends Component {
     const deviceService = new DeviceService();
     deviceService.getAll().then(body => {
       if (body.success) {
+        body.devices = body.devices.sort((a, b) => {
+          const categoryNameComparer = a.category.name.localeCompare(b.category.name);
+          if (categoryNameComparer === 0) return a.name.localeCompare(b.name);
+          else return categoryNameComparer;
+        });
         this.setState({ devices: body.devices, isLoading: false });
       } else {
         this.props.toast.error(body.message);
@@ -54,17 +68,13 @@ class AllDevices extends Component {
   }
 
   render() {
-    if (!this.props.user) {
-      return <Redirect to="/" />
-    }
-
     return (
       <div className="container">
         <h1>All Devices</h1>
         <div className="row">
           {
             !this.state.isLoading ?
-              this.state.devices.map(DeviceBox) :
+              this.state.devices.map(device => DeviceBox(device, this.props.user)) :
               Loading(this.state.isLoading)
           }
         </div>
