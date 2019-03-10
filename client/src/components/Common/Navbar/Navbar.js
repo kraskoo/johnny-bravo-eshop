@@ -17,7 +17,7 @@ class Navbar extends Component {
       const sessionService = new SessionService();
       sessionService.deleteSession({ jwtString, email }).then(body => {
         if (body.success) {
-          this.props.toast.success('Successfully logout.');
+          this.props.toast.success(body.message);
           this.props.updateUser(null);
           sessionStorage.removeItem('email');
           sessionStorage.removeItem('token');
