@@ -3,36 +3,34 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
-import Navbar from '../Common/Navbar/Navbar';
-import Footer from '../Common/Footer/Footer';
-import Home from '../Home/Home';
-import Login from '../User/Login/Login';
-import Register from '../User/Register/Register';
-import SetAdminRole from '../User/Admin/SetAdminRole/SetAdminRole';
-import NotFound from '../NotFound/NotFound';
-import CreateCategory from '../Category/Create';
-import AllCategories from '../Category/All';
-import CreateDevice from '../Device/Create';
-import AllDevices from '../Device/All';
-import DeviceDetails from '../Device/Details';
+import {
+  HomeWithUserConsumer,
+  NotFound
+} from './Pages';
+import {
+  NavbarWithUserContext,
+  Footer
+} from '../Common/Commons';
+import {
+  LoginWithUserConsumer,
+  RegisterWithUserConsumer,
+  SetAdminRoleWithUserConsumer
+} from '../User/Users';
+import {
+  AllDevicesWithUserContext,
+  CreateDeviceWithUserContext,
+  DeviceDetailsWithUserContext
+} from '../Device/Devices';
+import {
+  CreateCategoryWithUserContext,
+  AllCategoriesWithUserContext
+} from '../Category/Categories';
 
-import { UserProvider, UserConsumer } from '../../contexts/UserContext';
+import { UserProvider } from '../../contexts/UserContext';
 
-import withConsumer from '../../hocs/withConsumer';
 import withTokenGetter from '../../hocs/withTokenGetter';
 
-const HomeWithUserConsumer = withConsumer(Home, UserConsumer);
-const RegisterWithUserConsumer = withConsumer(Register, UserConsumer);
-const LoginWithUserConsumer = withConsumer(Login, UserConsumer);
-const SetAdminRoleWithUserConsumer = withConsumer(SetAdminRole, UserConsumer);
-const NavbarWithUserContext = withConsumer(Navbar, UserConsumer);
-const CreateCategoryWithUserContext = withConsumer(CreateCategory, UserConsumer);
-const AllCategoriesWithUserContext = withConsumer(AllCategories, UserConsumer);
-const CreateDeviceWithUserContext = withConsumer(CreateDevice, UserConsumer);
-const AllDevicesWithUserContext = withConsumer(AllDevices, UserConsumer);
-const DeviceDetailsWithUserContext = withConsumer(DeviceDetails, UserConsumer);
-
-function ToastCloseButton() {
+const ToastCloseButton = () => {
   return <span>&otimes;</span>;
 }
 

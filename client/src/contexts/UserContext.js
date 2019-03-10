@@ -1,6 +1,5 @@
 import { createContext } from 'react';
 
-const userValue = { user: null };
-const { Consumer: UserConsumer, Provider: UserProvider } = createContext(userValue);
+const { Consumer: UserConsumer, Provider: UserProvider } = createContext({ user: null });
 
-export { UserConsumer, UserProvider, userValue };
+export { UserConsumer, UserProvider };

@@ -14,8 +14,7 @@ function withTokenGetter(WrappedComponent) {
       this.setState({ user });
     }
 
-    onExistingToken() {
-      const token = sessionStorage.getItem('token');
+    onExistingToken(token) {
       const email = sessionStorage.getItem('email');
       const sessionService = new SessionService();
       sessionService.getSession({ jwtString: token, email }).then(body => {
@@ -28,7 +27,7 @@ function withTokenGetter(WrappedComponent) {
     componentDidMount() {
       const token = sessionStorage.getItem('token');
       if (token && !this.state.user) {
-        this.onExistingToken();
+        this.onExistingToken(token);
       }
     }
 
