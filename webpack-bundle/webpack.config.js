@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
-  mode: 'production',
+  mode: 'development',
   optimization: {
     minimizer: [new UglifyJsPlugin()],
   },
@@ -13,10 +13,13 @@ module.exports = {
     path: path.resolve(__dirname, 'dist')
   },
   plugins: [
-    new webpack.ProvidePlugin({   
+    new webpack.ProvidePlugin({
       jQuery: 'jquery',
       $: 'jquery',
-      jquery: 'jquery'
+      jquery: 'jquery',
+      'window.jQuery': 'jquery',
+      Popper: ['popper.js', 'default'],
+      Tether: 'tether'
     })
   ],
   module: {
