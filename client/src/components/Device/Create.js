@@ -73,93 +73,93 @@ class CreateDevice extends Component {
 
     return (
       <div className="container">
-        <div className="col-md-6">
+        <div className="col-md-5 col-centered">
           <h1>Create Device</h1>
-          <form onSubmit={this.handleSubmit}>
-            <div className="input-group">
-              <span className="input-group-addon" id="name-addon">Name</span>
-              <input
-                type="text"
-                name="name"
-                className="form-control"
-                placeholder="Name"
-                aria-describedby="name-addon"
-                onChange={this.handleChange} />
-            </div>
-            <div className="input-group">
-              <span className="input-group-addon" id="description-addon">Description</span>
-              <input
-                type="text"
-                name="description"
-                className="form-control"
-                placeholder="Description"
-                aria-describedby="description-addon"
-                onChange={this.handleChange} />
-            </div>
-            <div className="input-group">
-              <span className="input-group-addon" id="characteristics-addon">Characteristics</span>
-              <textarea
-                type="text"
-                name="characteristics"
-                className="form-control"
-                placeholder="Characteristics separated by new line"
-                aria-describedby="characteristics-addon"
-                onChange={this.handleChange}>
-              </textarea>
-            </div>
-            <div className="input-group">
-              <span className="input-group-addon" id="category-addon">Category</span>
-              <select name="category" 
-                className="form-control"
-                aria-describedby="category-addon"
-                onChange={this.handleChange}>
-                {
-                  this.state.categories ?
-                    this.state.categories.map(category => (<option value={category._id} key={category._id}>{category.name}</option>)) :
-                    null
-                }
-              </select>
-            </div>
-            <div className="input-group">
-              <span className="input-group-addon" id="quantity-addon">Quantity</span>
-              <input
-                type="number"
-                name="quantity"
-                className="form-control"
-                min="0"
-                max="1000"
-                placeholder="Quantity"
-                aria-describedby="quantity-addon"
-                onChange={this.handleChange} />
-            </div>
-            <div className="input-group">
-              <span className="input-group-addon" id="price-addon">Price</span>
-              <input
-                type="number"
-                name="price"
-                className="form-control"
-                min="1"
-                max="500000"
-                placeholder="Price"
-                aria-describedby="price-addon"
-                onChange={this.handleChange} />
-            </div>
-            <div className="input-group">
-              <span className="input-group-addon" id="imageUrls-addon">Image Urls</span>
-              <input
-                type="text"
-                name="imageUrls"
-                className="form-control"
-                min="1"
-                max="500000"
-                placeholder="Image Urls separated by comma and space"
-                aria-describedby="imageUrls-addon"
-                onChange={this.handleChange} />
-            </div>
-            <div className="input-group">
-              <input type="submit" className="btn btn-default" value="Create" />
-            </div>
-          </form>
+          <div className="well">
+            <form onSubmit={this.handleSubmit}>
+              <div className="form-group">
+                <label htmlFor="name">Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  className="form-control"
+                  placeholder="Name"
+                  id="name"
+                  onChange={this.handleChange} />
+              </div>
+              <div className="form-group">
+                <label htmlFor="description">Description</label>
+                <input
+                  type="text"
+                  name="description"
+                  className="form-control"
+                  placeholder="Description"
+                  id="description"
+                  onChange={this.handleChange} />
+              </div>
+              <div className="form-group">
+                <label htmlFor="characteristics">Characteristics</label>
+                <textarea
+                  type="text"
+                  name="characteristics"
+                  className="form-control"
+                  placeholder="Characteristics separated by new line"
+                  id="characteristics"
+                  onChange={this.handleChange}>
+                </textarea>
+              </div>
+              <div className="form-group">
+                <label htmlFor="category">Category</label>
+                <select name="category" 
+                  className="form-control"
+                  id="category"
+                  onChange={this.handleChange}>
+                  {
+                    this.state.categories ?
+                      this.state.categories.map(category => (<option value={category._id} key={category._id}>{category.name}</option>)) :
+                      null
+                  }
+                </select>
+              </div>
+              <div className="form-group">
+                <label htmlFor="quantity">Quantity</label>
+                <input
+                  type="number"
+                  name="quantity"
+                  className="form-control"
+                  min="0"
+                  max="1000"
+                  placeholder="Quantity"
+                  id="quantity"
+                  onChange={this.handleChange} />
+              </div>
+              <div className="form-group">
+                <label htmlFor="price">Price</label>
+                <input
+                  type="number"
+                  name="price"
+                  className="form-control"
+                  min="1"
+                  max="500000"
+                  placeholder="Price"
+                  id="price"
+                  onChange={this.handleChange} />
+              </div>
+              <div className="form-group">
+                <label htmlFor="imageUrls">Image Urls</label>
+                <input
+                  type="text"
+                  name="imageUrls"
+                  className="form-control"
+                  min="1"
+                  max="500000"
+                  placeholder="Image Urls separated by comma and space"
+                  id="imageUrls"
+                  onChange={this.handleChange} />
+              </div>
+              <button type="submit" className="btn btn-default">Create</button>
+            </form>
+          </div>
         </div>
       </div>
     );

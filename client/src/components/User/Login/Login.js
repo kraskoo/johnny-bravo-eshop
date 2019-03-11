@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 import UserService from '../../../services/user';
 import SessionService from '../../../services/session';
 
@@ -51,21 +51,22 @@ class Login extends Component {
 
     return (
       <div className="container">
-        <div className="col-md-6">
-          <h1>Login Form</h1>
-          <form onSubmit={this.handleSubmit}>
-            <div className="input-group">
-              <span className="input-group-addon" id="email-addon">Email</span>
-              <input type="email" name="email" className="form-control" placeholder="Email" aria-describedby="email-addon" onChange={this.handleChange} />
-            </div>
-            <div className="input-group">
-              <span className="input-group-addon" id="password-addon">Password</span>
-              <input type="password" name="password" className="form-control" placeholder="Password" aria-describedby="password-addon" onChange={this.handleChange} />
-            </div>
-            <div className="input-group">
-              <input type="submit" className="btn btn-default" value="Log In" />
-            </div>
-          </form>
+        <div className="col-md-6 col-centered">
+          <h1>Login</h1>
+          <div className="well">
+            <form onSubmit={this.handleSubmit}>
+              <div className="form-group">
+                <label htmlFor="email">Email</label>
+                <input type="email" name="email" className="form-control" placeholder="Email" id="email" onChange={this.handleChange} />
+              </div>
+              <div className="form-group">
+                <label htmlFor="password">Password</label>
+                <input type="password" name="password" className="form-control" placeholder="Password" aria-describedby="password" onChange={this.handleChange} />
+              </div>
+              <p>If you don't have an account, you can register from <Link to="/user/register">here</Link></p>
+              <button type="submit" className="btn btn-default">Login</button>
+            </form>
+          </div>
         </div>
       </div>
     );

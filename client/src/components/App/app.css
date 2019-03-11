@@ -1,0 +1,16 @@
+.col-centered {
+  float: none;
+  margin: 0 auto;
+}
+
+.right-space-25 {
+  margin-right: 25px;
+}
+
+.width-300 {
+  width: 300px !important;
+}
+
+.width-240 {
+  width: 240px !important;
+}

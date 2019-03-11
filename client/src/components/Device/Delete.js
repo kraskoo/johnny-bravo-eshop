@@ -4,6 +4,7 @@ import DeviceService from '../../services/device';
 import Loading from '../Common/Loading';
 
 class DeleteDevice extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -21,26 +22,33 @@ class DeleteDevice extends Component {
   }
 
   componentDidMount() {
+    this._isMounted = true;
     const deviceService = new DeviceService();
     const id = this.props.match.params.id;
     deviceService.get(id).then(deviceBody => {
       if (deviceBody.success) {
-        this.setState({
-          name: deviceBody.device.name,
-          description: deviceBody.device.description,
-          characteristics: deviceBody.device.characteristics.join('\n'),
-          category: deviceBody.device.category,
-          quantity: deviceBody.device.quantity,
-          price: deviceBody.device.price,
-          imageUrls: deviceBody.device.imageUrls.join(', '),
-          isLoading: false
-        });
+        if (this._isMounted) {
+          this.setState({
+            name: deviceBody.device.name,
+            description: deviceBody.device.description,
+            characteristics: deviceBody.device.characteristics.join('\n'),
+            category: deviceBody.device.category,
+            quantity: deviceBody.device.quantity,
+            price: deviceBody.device.price,
+            imageUrls: deviceBody.device.imageUrls.join(', '),
+            isLoading: false
+          });
+        }
       } else {
         this.props.toast.error(deviceBody.message);
       }
     }).catch(error => {
       this.props.toast.error(error.message);
     });
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   handleSubmit(e) {
@@ -70,85 +78,85 @@ class DeleteDevice extends Component {
     
     return (
       <div className="container">
-        <div className="col-md-6">
-          <h1>Edit Device</h1>
-          <form onSubmit={this.handleSubmit}>
-            <div className="input-group">
-              <span className="input-group-addon" id="name-addon">Name</span>
-              <input
-                type="text"
-                name="name"
-                className="form-control"
-                aria-describedby="name-addon"
-                value={this.state.name}
-                readOnly />
-            </div>
-            <div className="input-group">
-              <span className="input-group-addon" id="description-addon">Description</span>
-              <input
-                type="text"
-                name="description"
-                className="form-control"
-                aria-describedby="description-addon"
-                value={this.state.description}
-                readOnly />
-            </div>
-            <div className="input-group">
-              <span className="input-group-addon" id="characteristics-addon">Characteristics</span>
-              <textarea
-                type="text"
-                name="characteristics"
-                className="form-control"
-                aria-describedby="characteristics-addon"
-                value={this.state.characteristics} 
-                readOnly>
-              </textarea>
-            </div>
-            <div className="input-group">
-              <span className="input-group-addon" id="category-addon">Category</span>
-              <select name="category" 
-                className="form-control"
-                aria-describedby="category-addon"
-                readOnly>
-                {
-                  <option value={this.state.category._id}>{this.state.category.name}</option>
-                }
-              </select>
-            </div>
-            <div className="input-group">
-              <span className="input-group-addon" id="quantity-addon">Quantity</span>
-              <input
-                type="number"
-                name="quantity"
-                className="form-control"
-                aria-describedby="quantity-addon"
-                value={this.state.quantity}
-                readOnly />
-            </div>
-            <div className="input-group">
-              <span className="input-group-addon" id="price-addon">Price</span>
-              <input
-                type="number"
-                name="price"
-                className="form-control"
-                aria-describedby="price-addon"
-                value={this.state.price}
-                readOnly />
-            </div>
-            <div className="input-group">
-              <span className="input-group-addon" id="imageUrls-addon">Image Urls</span>
-              <input
-                type="text"
-                name="imageUrls"
-                className="form-control"
-                aria-describedby="imageUrls-addon"
-                value={this.state.imageUrls}
-                readOnly />
-            </div>
-            <div className="input-group">
-              <input type="submit" className="btn btn-danger" value="Delete" />
-            </div>
-          </form>
+        <div className="col-md-5 col-centered">
+          <h1>Delete Device</h1>
+          <div className="well">
+            <form onSubmit={this.handleSubmit}>
+              <div className="form-group">
+                <label htmlFor="name">Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  className="form-control"
+                  id="name"
+                  value={this.state.name}
+                  readOnly />
+              </div>
+              <div className="form-group">
+                <label htmlFor="description">Description</label>
+                <input
+                  type="text"
+                  name="description"
+                  className="form-control"
+                  id="description"
+                  value={this.state.description}
+                  readOnly />
+              </div>
+              <div className="form-group">
+                <label htmlFor="characteristics">Characteristics</label>
+                <textarea
+                  type="text"
+                  name="characteristics"
+                  className="form-control"
+                  id="characteristics"
+                  value={this.state.characteristics} 
+                  readOnly>
+                </textarea>
+              </div>
+              <div className="form-group">
+                <label htmlFor="category">Category</label>
+                <select name="category" 
+                  className="form-control"
+                  id="category"
+                  readOnly>
+                  {
+                    <option value={this.state.category._id}>{this.state.category.name}</option>
+                  }
+                </select>
+              </div>
+              <div className="form-group">
+                <label htmlFor="quantity">Quantity</label>
+                <input
+                  type="number"
+                  name="quantity"
+                  className="form-control"
+                  id="quantity"
+                  value={this.state.quantity}
+                  readOnly />
+              </div>
+              <div className="form-group">
+                <label htmlFor="price">Price</label>
+                <input
+                  type="number"
+                  name="price"
+                  className="form-control"
+                  id="price"
+                  value={this.state.price}
+                  readOnly />
+              </div>
+              <div className="form-group">
+                <label htmlFor="imageUrls">Image Urls</label>
+                <input
+                  type="text"
+                  name="imageUrls"
+                  className="form-control"
+                  id="imageUrls"
+                  value={this.state.imageUrls}
+                  readOnly />
+              </div>
+              <button type="submit" className="btn btn-danger">Delete</button>
+            </form>
+          </div>
         </div>
       </div>
     );

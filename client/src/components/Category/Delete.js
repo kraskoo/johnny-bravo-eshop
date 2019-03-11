@@ -4,6 +4,7 @@ import CategoryService from '../../services/category';
 import Loading from '../Common/Loading';
 
 class DeleteCategory extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = { category: '', name: '', hasSubmitted: false, isLoading: true };
@@ -11,17 +12,24 @@ class DeleteCategory extends Component {
   }
 
   componentDidMount() {
+    this._isMounted = true;
     const categoryService = new CategoryService();
     const id = this.props.match.params.id;
     categoryService.get(id).then(body => {
       if (body.success) {
-        this.setState({ category: body.category, name: body.category.name, isLoading: false });
+        if (this._isMounted) {
+          this.setState({ category: body.category, name: body.category.name, isLoading: false });
+        }
       } else {
         this.props.toast.error(body.message);
       }
     }).catch(error => {
       this.props.toast.error(error.message);
     });
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   handleSubmit(e) {
@@ -50,17 +58,17 @@ class DeleteCategory extends Component {
     
     return (
       <div className="container">
-        <div className="col-md-6">
-          <h1>Create Category</h1>
-          <form onSubmit={this.handleSubmit}>
-            <div className="input-group">
-              <span className="input-group-addon" id="name-addon">Name</span>
-              <input type="text" name="name" className="form-control" aria-describedby="name-addon" value={this.state.name} readOnly />
-            </div>
-            <div className="input-group">
-              <input type="submit" className="btn btn-danger" value="Delete" />
-            </div>
-          </form>
+        <div className="col-md-5 col-centered">
+          <h1>Delete Category</h1>
+          <div className="well">
+            <form className="form-inline" onSubmit={this.handleSubmit}>
+              <div className="form-group">
+                <label htmlFor="name" className="right-space-25">Name</label>
+                <input type="text" name="name" className="form-control right-space-25 width-240" placeholder="Name" id="name" onChange={this.handleChange} value={this.state.name} readOnly />
+              </div>
+              <button type="submit" className="btn btn-danger">Delete</button>
+            </form>
+          </div>
         </div>
       </div>
     );

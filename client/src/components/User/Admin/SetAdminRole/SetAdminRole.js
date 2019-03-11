@@ -4,6 +4,7 @@ import UserService from '../../../../services/user';
 import Loading from '../../../Common/Loading';
 
 class SetAdminRole extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = { users: null, id: '', hasSubmitted: false, isLoading: true };
@@ -31,16 +32,25 @@ class SetAdminRole extends Component {
   }
 
   componentDidMount() {
+    this._isMounted = true;
     const userService = new UserService();
     userService.getAllRegularUsers().then(body => {
       if (body.users.length > 0) {
-        this.setState({ id: body.users[0]._id });
+        if (this._isMounted) {
+          this.setState({ id: body.users[0]._id });
+        }
       }
 
-      this.setState({ users: body.users, isLoading: false });
+      if (this._isMounted) {
+        this.setState({ users: body.users, isLoading: false });
+      }
     }).catch(error => {
       this.props.toast.error(error.message);
     });
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   render() {
@@ -54,26 +64,26 @@ class SetAdminRole extends Component {
 
     return (
       <div className="container">
-        <div className="col-md-6">
+        <div className="col-md-6 col-centered">
           <h1>Set Admin Role to Regular User</h1>
             {
               this.state.users && this.state.users.length > 0 ?
-                <form onSubmit={this.handleSubmit}>
-                  <div className="input-group">
-                    <span className="input-group-addon" id="users-addon">Users</span>
-                    <select name="id" className="form-control" aria-describedby="users-addon" onChange={this.handleChange}>
-                      {
-                        this.state.users.map(user => (
-                            <option value={user._id} key={user._id}>{user.username}</option>
+                <div className="well">
+                  <form className="form-inline" onSubmit={this.handleSubmit}>
+                    <div className="form-group">
+                      <label htmlFor="users" className="right-space-25">Name</label>
+                      <select name="id" className="form-control width-300 right-space-25" id="users" onChange={this.handleChange}>
+                        {
+                          this.state.users.map(user => (
+                              <option value={user._id} key={user._id}>{user.username}</option>
+                            )
                           )
-                        )
-                      }
-                    </select>
-                  </div>
-                  <div className="input-group">
-                    <input type="submit" className="btn btn-default" value="Set as Admin" />
-                  </div>
-                </form> :
+                        }
+                      </select>
+                    </div>
+                    <button type="submit" className="btn btn-default">Set as Admin</button>
+                  </form>
+                </div> :
                 <h3 className="text-danger">Sorry, no users</h3>
             }
         </div>

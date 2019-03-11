@@ -36,17 +36,17 @@ class CreateCategory extends Component {
 
     return (
       <div className="container">
-        <div className="col-md-6">
+        <div className="col-md-5 col-centered">
           <h1>Create Category</h1>
-          <form onSubmit={this.handleSubmit}>
-            <div className="input-group">
-              <span className="input-group-addon" id="name-addon">Name</span>
-              <input type="text" name="name" className="form-control" placeholder="Name" aria-describedby="name-addon" onChange={this.handleChange} />
-            </div>
-            <div className="input-group">
-              <input type="submit" className="btn btn-default" value="Create" />
-            </div>
-          </form>
+          <div className="well">
+            <form className="form-inline" onSubmit={this.handleSubmit}>
+              <div className="form-group">
+                <label htmlFor="name" className="right-space-25">Name</label>
+                <input type="text" name="name" className="form-control right-space-25 width-240" placeholder="Name" id="name" onChange={this.handleChange} />
+              </div>
+              <button type="submit" class="btn btn-default">Create</button>
+            </form>
+          </div>
         </div>
       </div>
     );

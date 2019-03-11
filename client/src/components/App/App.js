@@ -4,6 +4,7 @@ import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { UserProvider } from '../../contexts/UserContext';
 import withTokenGetter from '../../hocs/withTokenGetter';
+import './app.css';
 
 import { Home, NotFound } from './Pages';
 import { NavbarWithUserContext as Navbar, Footer } from '../Common/Commons';

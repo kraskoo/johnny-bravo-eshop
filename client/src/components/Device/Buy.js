@@ -3,9 +3,10 @@ import { Redirect } from 'react-router-dom';
 import DeviceService from '../../services/device';
 import Loading from '../Common/Loading';
 
-const imgStyles = { maxWidth: '200px' };
+const imgStyles = { maxWidth: '300px' };
 
 class BuyDevices extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = { device: null, count: 0, isLoading: true, hasSubmitted: false };
@@ -14,10 +15,13 @@ class BuyDevices extends Component {
   }
 
   componentDidMount() {
+    this._isMounted = true;
     const deviceService = new DeviceService();
     deviceService.get(this.props.match.params.id).then(body => {
       if (body.success) {
-        this.setState({ device: body.device, isLoading: false });
+        if (this._isMounted) {
+          this.setState({ device: body.device, isLoading: false });
+        }
       } else {
         this.props.toast.success(body.message)
       }
@@ -28,6 +32,10 @@ class BuyDevices extends Component {
 
   handleChange({ target }) {
     this.setState({ [target.name]: target.value });
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   handleSubmit(e) {
@@ -66,27 +74,32 @@ class BuyDevices extends Component {
     const device = this.state.device;
     return (
       <div className="container">
-        <h1>Name: {device.name}</h1>
-        <img src={device.imageUrls[0]} alt={device.name} style={imgStyles} />
-        <p>Price: ${device.price}</p>
-        <div className="col-md-3">
-          <form onSubmit={this.handleSubmit}>
-            <div className="input-group">
-              <span className="input-group-addon" id="count-addon">Count</span>
-              <input
-                type="number"
-                name="count"
-                className="form-control"
-                placeholder="Count"
-                min="1"
-                max={device.quantity}
-                aria-describedby="count-addon"
-                onChange={this.handleChange} />
-            </div>
-            <div className="input-group">
-              <input type="submit" className="btn btn-success" value="Buy" />
-            </div>
-          </form>
+        <div className="col-md-7 col-centered">
+          <h1>Name: {device.name}</h1>
+          <img src={device.imageUrls[0]} alt={device.name} style={imgStyles} />
+          {
+            device.imageUrls.length > 1 ?
+              <img src={device.imageUrls[1]} alt={device.name} style={imgStyles} /> :
+              null
+          }
+          <p>Price: ${device.price}</p>
+          <div className="well">
+            <form className="form-inline">
+              <div className="form-group">
+                <label htmlFor="count" className="right-space-25">Count</label>
+                <input
+                  type="number"
+                  name="count"
+                  className="form-control right-space-25"
+                  placeholder="Count"
+                  min="1"
+                  max={device.quantity}
+                  id="count"
+                  onChange={this.handleChange} />
+                </div>
+                <button type="submit" className="btn btn-success">Buy</button>
+            </form>
+          </div>
         </div>
       </div>
     );

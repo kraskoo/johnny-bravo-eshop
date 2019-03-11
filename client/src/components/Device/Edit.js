@@ -5,6 +5,7 @@ import DeviceService from '../../services/device';
 import Loading from '../Common/Loading';
 
 class EditDevice extends Component {
+  _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
@@ -24,37 +25,46 @@ class EditDevice extends Component {
   }
 
   componentDidMount() {
+    this._isMounted = true;
     const deviceService = new DeviceService();
     const categoryService = new CategoryService();
     const id = this.props.match.params.id;
     categoryService.getAll().then(categoryBody => {
       if (categoryBody.success) {
-        this.setState({ categories: categoryBody.categories }, function() {
-          deviceService.get(id).then(deviceBody => {
-            if (deviceBody.success) {
-              this.setState({
-                name: deviceBody.device.name,
-                description: deviceBody.device.description,
-                characteristics: deviceBody.device.characteristics.join('\n'),
-                category: deviceBody.device.category,
-                quantity: deviceBody.device.quantity,
-                price: deviceBody.device.price,
-                imageUrls: deviceBody.device.imageUrls.join(', '),
-                isLoading: false
-              });
-            } else {
-              this.props.toast.error(deviceBody.message);
-            }
-          }).catch(error => {
-            this.props.toast.error(error.message);
+        if (this._isMounted) {
+          this.setState({ categories: categoryBody.categories }, function() {
+            deviceService.get(id).then(deviceBody => {
+              if (deviceBody.success) {
+                if (this._isMounted) {
+                  this.setState({
+                    name: deviceBody.device.name,
+                    description: deviceBody.device.description,
+                    characteristics: deviceBody.device.characteristics.join('\n'),
+                    category: deviceBody.device.category,
+                    quantity: deviceBody.device.quantity,
+                    price: deviceBody.device.price,
+                    imageUrls: deviceBody.device.imageUrls.join(', '),
+                    isLoading: false
+                  });
+                }
+              } else {
+                this.props.toast.error(deviceBody.message);
+              }
+            }).catch(error => {
+              this.props.toast.error(error.message);
+            });
           });
-        });
+        }
       } else {
         this.props.toast.error(categoryBody.message);
       }
     }).catch(error => {
       this.props.toast.error(error.message);
     });
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   handleSubmit(e) {
@@ -97,101 +107,101 @@ class EditDevice extends Component {
     
     return (
       <div className="container">
-        <div className="col-md-6">
+        <div className="col-md-5 col-centered">
           <h1>Edit Device</h1>
-          <form onSubmit={this.handleSubmit}>
-            <div className="input-group">
-              <span className="input-group-addon" id="name-addon">Name</span>
-              <input
-                type="text"
-                name="name"
-                className="form-control"
-                placeholder="Name"
-                aria-describedby="name-addon"
-                onChange={this.handleChange}
-                value={this.state.name} />
-            </div>
-            <div className="input-group">
-              <span className="input-group-addon" id="description-addon">Description</span>
-              <input
-                type="text"
-                name="description"
-                className="form-control"
-                placeholder="Description"
-                aria-describedby="description-addon"
-                onChange={this.handleChange}
-                value={this.state.description} />
-            </div>
-            <div className="input-group">
-              <span className="input-group-addon" id="characteristics-addon">Characteristics</span>
-              <textarea
-                type="text"
-                name="characteristics"
-                className="form-control"
-                placeholder="Characteristics separated by new line"
-                aria-describedby="characteristics-addon"
-                onChange={this.handleChange}
-                value={this.state.characteristics}>
-              </textarea>
-            </div>
-            <div className="input-group">
-              <span className="input-group-addon" id="category-addon">Category</span>
-              <select name="category" 
-                className="form-control"
-                aria-describedby="category-addon"
-                onChange={this.handleChange}
-                defaultValue={this.state.category._id}>
-                {
-                  this.state.categories ?
-                    this.state.categories.map(category =>
-                      (<option value={category._id} key={category._id}>{category.name}</option>)) :
-                    null
-                }
-              </select>
-            </div>
-            <div className="input-group">
-              <span className="input-group-addon" id="quantity-addon">Quantity</span>
-              <input
-                type="number"
-                name="quantity"
-                className="form-control"
-                min="0"
-                max="1000"
-                placeholder="Quantity"
-                aria-describedby="quantity-addon"
-                onChange={this.handleChange}
-                value={this.state.quantity} />
-            </div>
-            <div className="input-group">
-              <span className="input-group-addon" id="price-addon">Price</span>
-              <input
-                type="number"
-                name="price"
-                className="form-control"
-                min="1"
-                max="500000"
-                placeholder="Price"
-                aria-describedby="price-addon"
-                onChange={this.handleChange}
-                value={this.state.price} />
-            </div>
-            <div className="input-group">
-              <span className="input-group-addon" id="imageUrls-addon">Image Urls</span>
-              <input
-                type="text"
-                name="imageUrls"
-                className="form-control"
-                min="1"
-                max="500000"
-                placeholder="Image Urls separated by comma and space"
-                aria-describedby="imageUrls-addon"
-                onChange={this.handleChange}
-                value={this.state.imageUrls} />
-            </div>
-            <div className="input-group">
-              <input type="submit" className="btn btn-warning" value="Edit" />
-            </div>
-          </form>
+          <div className="well">
+            <form onSubmit={this.handleSubmit}>
+              <div className="form-group">
+                <label htmlFor="name">Name</label>
+                <input
+                  type="text"
+                  name="name"
+                  className="form-control"
+                  placeholder="Name"
+                  id="name"
+                  onChange={this.handleChange}
+                  value={this.state.name} />
+              </div>
+              <div className="form-group">
+                <label htmlFor="description">Description</label>
+                <input
+                  type="text"
+                  name="description"
+                  className="form-control"
+                  placeholder="Description"
+                  id="description"
+                  onChange={this.handleChange}
+                  value={this.state.description} />
+              </div>
+              <div className="form-group">
+                <label htmlFor="characteristics">Characteristics</label>
+                <textarea
+                  type="text"
+                  name="characteristics"
+                  className="form-control"
+                  placeholder="Characteristics separated by new line"
+                  id="characteristics"
+                  onChange={this.handleChange}
+                  value={this.state.characteristics}>
+                </textarea>
+              </div>
+              <div className="form-group">
+                <label htmlFor="category">Category</label>
+                <select name="category" 
+                  className="form-control"
+                  id="category"
+                  onChange={this.handleChange}
+                  defaultValue={this.state.category._id}>
+                  {
+                    this.state.categories ?
+                      this.state.categories.map(category =>
+                        (<option value={category._id} key={category._id}>{category.name}</option>)) :
+                      null
+                  }
+                </select>
+              </div>
+              <div className="form-group">
+                <label htmlFor="quantity">Quantity</label>
+                <input
+                  type="number"
+                  name="quantity"
+                  className="form-control"
+                  min="0"
+                  max="1000"
+                  placeholder="Quantity"
+                  id="quantity"
+                  onChange={this.handleChange}
+                  value={this.state.quantity} />
+              </div>
+              <div className="form-group">
+                <label htmlFor="price">Price</label>
+                <input
+                  type="number"
+                  name="price"
+                  className="form-control"
+                  min="1"
+                  max="500000"
+                  placeholder="Price"
+                  id="price"
+                  onChange={this.handleChange}
+                  value={this.state.price} />
+              </div>
+              <div className="form-group">
+                <label htmlFor="imageUrls">Image Urls</label>
+                <input
+                  type="text"
+                  name="imageUrls"
+                  className="form-control"
+                  min="1"
+                  max="500000"
+                  placeholder="Image Urls separated by comma and space"
+                  id="imageUrls"
+                  onChange={this.handleChange}
+                  value={this.state.imageUrls} />
+              </div>
+              <button type="submit" className="btn btn-warning">Edit</button>
+            </form>
+          </div>
         </div>
       </div>
     );

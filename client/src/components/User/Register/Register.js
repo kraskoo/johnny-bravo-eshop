@@ -59,25 +59,25 @@ class Register extends Component {
 
     return (
       <div className="container">
-        <div className="col-md-6">
-          <h1>Register Form</h1>
-          <form onSubmit={this.handleSubmit}>
-            <div className="input-group">
-              <span className="input-group-addon" id="username-addon">Username</span>
-              <input type="text" name="username" className="form-control" placeholder="Username" aria-describedby="username-addon" onChange={this.handleChange} />
-            </div>
-            <div className="input-group">
-              <span className="input-group-addon" id="email-addon">Email</span>
-              <input type="email" name="email" className="form-control" placeholder="Email" aria-describedby="email-addon" onChange={this.handleChange} />
-            </div>
-            <div className="input-group">
-              <span className="input-group-addon" id="password-addon">Password</span>
-              <input type="password" name="password" className="form-control" placeholder="Password" aria-describedby="password-addon" onChange={this.handleChange} />
-            </div>
-            <div className="input-group">
-              <input type="submit" className="btn btn-default" value="Register" />
-            </div>
-          </form>
+        <div className="col-md-6 col-centered">
+          <h1>Register</h1>
+          <div className="well">
+            <form onSubmit={this.handleSubmit}>
+              <div className="form-group">
+                <label htmlFor="username">Username</label>
+                <input type="text" name="username" className="form-control" placeholder="Username" id="username" onChange={this.handleChange} />
+              </div>
+              <div className="form-group">
+                <label htmlFor="email">Email</label>
+                <input type="email" name="email" className="form-control" placeholder="Email" id="email" onChange={this.handleChange} />
+              </div>
+              <div className="form-group">
+                <label htmlFor="password">Password</label>
+                <input type="password" name="password" className="form-control" placeholder="Password" id="password" onChange={this.handleChange} />
+              </div>
+              <button type="submit" className="btn btn-default">Register</button>
+            </form>
+          </div>
         </div>
       </div>
     );
