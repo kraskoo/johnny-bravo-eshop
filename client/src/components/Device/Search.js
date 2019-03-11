@@ -35,7 +35,7 @@ class SearchDevices extends Component {
 
     return (
       <div className="container">
-        <h1>All Devices</h1>
+        <h1>Search results for `{this.props.match.params.search}`</h1>
         <div className="row">
           {
             this.state.devices.map(device => DeviceBox(device, this.props.user))
