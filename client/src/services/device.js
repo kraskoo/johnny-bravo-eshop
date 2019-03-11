@@ -6,6 +6,7 @@ class DeviceService extends BaseService {
     super();
     this.baseUrl = `${this.baseUrl}/device`;
     this.createUrl = `${this.baseUrl}/create`;
+    this.searchUrl = `${this.baseUrl}/search`;
     this.getAllUrl = `${this.baseUrl}/all`;
     this.getByIdUrl = `${this.baseUrl}/get`;
     this.buyUrl = `${this.baseUrl}/buy`;
@@ -15,6 +16,11 @@ class DeviceService extends BaseService {
 
   create(body) {
     return post(this.createUrl, body);
+  }
+
+  search(search) {
+    const url = `${this.searchUrl}/${search}`;
+    return get(url);
   }
 
   getAll() {

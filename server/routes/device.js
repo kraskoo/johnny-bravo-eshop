@@ -241,4 +241,62 @@ router.get('/buy/:id/:count', (req, res) => {
   }
 });
 
+router.get('/search/:search', (req, res) => {
+  const params = req.params;
+  if (params) {
+    const { search } = params;
+    Category.find({ name: { $regex: search, $options: 'i' } })
+      .populate({
+        path: 'devices',
+        model: 'Device',
+        populate: {
+          path: 'category',
+          model: 'Category'
+        }
+      })
+      .then(categories => {
+        if (categories && categories.length > 0) {
+          const devices = [];
+          for (const category of categories) {
+            for (const device of category.devices) {
+              devices.push(device);
+            }
+          }
+
+          return res.status(200).json({
+            success: true,
+            message: messages.searchedDevices(devices.length),
+            devices
+          });
+        } else {
+          Device.find({ $or: [{ name: { $regex: search, $options: 'i' } }, { description: { $regex: search, $options: 'i' } }] })
+            .populate('category')
+            .then(devices => {
+              return res.status(200).json({
+                success: true,
+                message: messages.searchedDevices(devices.length),
+                devices
+              });
+            })
+            .catch(error => {
+              return res.status(400).json({
+                success: false,
+                message: error.message
+              });
+            });
+        }
+      }).catch(error => {
+        return res.status(400).json({
+          success: false,
+          message: error.message
+        });
+      })
+  } else {
+    return res.status(400).json({
+      success: false,
+      message: commonMessages.requiredParametes
+    });
+  }
+});
+
 module.exports = router;

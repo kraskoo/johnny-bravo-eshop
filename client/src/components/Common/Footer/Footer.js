@@ -20,9 +20,10 @@ class Footer extends Component {
       footer.style.position = 'inherit';
     }
     
-		++this._count;
-    if (this._count === 20) {
+    ++this._count;
+    if (this._count === 30) {
       clearTimeout(this._timeout);
+      this._count = 0;
     }
   }
 
@@ -31,7 +32,7 @@ class Footer extends Component {
   }
 
   componentDidUpdate() {
-    this._timeout = setTimeout(this.updateDimension, 555);
+    this._timeout = setTimeout(this.updateDimension, 355);
   }
 
   render() {

@@ -15,6 +15,7 @@ import {
 } from '../User/Users';
 import {
   AllDevicesWithUserContext as AllDevices,
+  SearchDevicesWithUserContext as SearchDevices,
   CreateDeviceWithUserContext as CreateDevice,
   EditDeviceWithUserContext as EditDevice,
   DeleteDeviceWithUserContext as DeleteDevice,
@@ -53,6 +54,7 @@ class AppBase extends Component {
               <Route path="/device/edit/:id" exact render={(props) => <EditDevice {...props} toast={toast} />} />
               <Route path="/device/delete/:id" exact render={(props) => <DeleteDevice {...props} toast={toast} />} />
               <Route path="/device/buy/:id" exact render={(props) => <BuyDevices {...props} toast={toast} />} />
+              <Route path="/device/search/:search" exact render={(props) => <SearchDevices {...props} toast={toast} />} />
               <Route path="/device/all" exact render={(props) => <AllDevices {...props} toast={toast} />} />
               <Route path="/device/:id" exact render={(props) => <DeviceDetails {...props} toast={toast} />} />
               <Route component={NotFound} />

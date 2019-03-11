@@ -1,12 +1,24 @@
 import React, { Fragment, Component } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, withRouter } from 'react-router-dom';
 import SessionService from '../../../services/session';
 import './Navbar.css';
 
 class Navbar extends Component {
   constructor(props) {
     super(props);
+    this.state = { search: '' };
     this.handleLogout = this.handleLogout.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    this.props.history.push(`/device/search/${this.state.search}`);
+  }
+
+  handleChange({ target }) {
+    this.setState({ [target.name]: target.value });
   }
 
   handleLogout(e) {
@@ -60,6 +72,21 @@ class Navbar extends Component {
                   null
               }
             </ul>
+            <form className="navbar-form navbar-left" onSubmit={this.handleSubmit}>
+              <div class="input-group">
+                <input
+                  type="text"
+                  name="search"
+                  className="form-control"
+                  placeholder="Search..."
+                  onChange={this.handleChange}/>
+                <span className="input-group-btn">
+                  <button className="btn btn-default" type="submit">
+                    <span className="glyphicon glyphicon-search"></span>
+                  </button>
+                </span>
+              </div>
+            </form>
             <ul className="nav navbar-nav navbar-right">
               {
                 this.props.user ?
@@ -99,4 +126,4 @@ class Navbar extends Component {
   }
 }
 
-export default Navbar;
+export default withRouter(Navbar);
