@@ -14,6 +14,7 @@ class Navbar extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    this.setState({ search: '' });
     this.props.history.push(`/device/search/${this.state.search}`);
   }
 
@@ -73,13 +74,14 @@ class Navbar extends Component {
               }
             </ul>
             <form className="navbar-form navbar-left" onSubmit={this.handleSubmit}>
-              <div class="input-group">
+              <div className="input-group">
                 <input
                   type="text"
                   name="search"
                   className="form-control"
                   placeholder="Search..."
-                  onChange={this.handleChange}/>
+                  value={this.state.search}
+                  onChange={this.handleChange} />
                 <span className="input-group-btn">
                   <button className="btn btn-default" type="submit">
                     <span className="glyphicon glyphicon-search"></span>
