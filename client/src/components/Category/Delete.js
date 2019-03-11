@@ -6,7 +6,7 @@ import Loading from '../Common/Loading';
 class DeleteCategory extends Component {
   constructor(props) {
     super(props);
-    this.state = { category: null, name: null, hasSubmitted: false, isLoading: true };
+    this.state = { category: '', name: '', hasSubmitted: false, isLoading: true };
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 

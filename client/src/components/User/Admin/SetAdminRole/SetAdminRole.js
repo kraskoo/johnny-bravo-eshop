@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import UserService from '../../../../services/user';
+import Loading from '../../../Common/Loading';
 
 class SetAdminRole extends Component {
   constructor(props) {
     super(props);
-    this.state = { users: null, id: null, hasSubmitted: false };
+    this.state = { users: null, id: '', hasSubmitted: false, isLoading: true };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -36,7 +37,7 @@ class SetAdminRole extends Component {
         this.setState({ id: body.users[0]._id });
       }
 
-      this.setState({ users: body.users });
+      this.setState({ users: body.users, isLoading: false });
     }).catch(error => {
       this.props.toast.error(error.message);
     });
@@ -45,6 +46,10 @@ class SetAdminRole extends Component {
   render() {
     if ((!this.props.user || (this.props.user && !this.props.user.roles.includes('Admin'))) || this.state.hasSubmitted) {
       return <Redirect to="/" />;
+    }
+
+    if (this.state.isLoading) {
+      return Loading(this.state.isLoading);
     }
 
     return (
