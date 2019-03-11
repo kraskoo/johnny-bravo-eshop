@@ -41,6 +41,11 @@ class BuyDevices extends Component {
   handleSubmit(e) {
     e.preventDefault();
     const deviceService = new DeviceService();
+    if (this.state.count === 0) {
+      this.props.toast.error('You cannot buy 0 devices');
+      return;
+    }
+
     deviceService.buy(this.props.match.params.id, this.state.count).then(body => {
       if (body.success) {
         this.setState({ hasSubmitted: true });
@@ -60,11 +65,6 @@ class BuyDevices extends Component {
 
     if (this.state.isLoading) {
       return Loading(this.state.isLoading);
-    }
-
-    if (this.state.device.quantity === 0) {
-      this.props.toast.error('Not enough devices in the store');
-      return <Redirect to="/device/all" />;
     }
 
     if (this.state.hasSubmitted) {
@@ -90,7 +90,7 @@ class BuyDevices extends Component {
                 <input
                   type="number"
                   name="count"
-                  className="form-control right-space-25"
+                  className="form-control right-space-25 width-450"
                   placeholder="Count"
                   min="1"
                   max={device.quantity}
