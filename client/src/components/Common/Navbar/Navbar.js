@@ -14,6 +14,11 @@ class Navbar extends Component {
 
   handleSubmit(e) {
     e.preventDefault();
+    if (this.state.search === '') {
+      this.props.toast.error('You cannot search with empty string!');
+      return;
+    }
+
     this.setState({ search: '' });
     this.props.history.push(`/device/search/${this.state.search}`);
   }
