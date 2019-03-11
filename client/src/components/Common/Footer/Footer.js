@@ -23,22 +23,11 @@ class Footer extends Component {
     this.setState({ documentHeight: document.body.offsetHeight }, this.setFooterPosition);
   }
 
-  componentWillMount() {
-    this.updateDimension();
-  }
-
-  componentDidMount() {
-    window.addEventListener('resize', this.updateDimension);
-    document.addEventListener('scroll', this.updateDimension);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.updateDimension);
-    document.removeEventListener('scroll', this.updateDimension);
+  componentDidUpdate() {
+    setTimeout(this.updateDimension, 555);
   }
 
   render() {
-    setTimeout(this.updateDimension, 555);
     return (
       <footer className="footer">
         <div className="container">

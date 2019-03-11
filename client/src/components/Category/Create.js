@@ -44,7 +44,7 @@ class CreateCategory extends Component {
                 <label htmlFor="name" className="right-space-25">Name</label>
                 <input type="text" name="name" className="form-control right-space-25 width-240" placeholder="Name" id="name" onChange={this.handleChange} />
               </div>
-              <button type="submit" class="btn btn-default">Create</button>
+              <button type="submit" className="btn btn-default">Create</button>
             </form>
           </div>
         </div>
