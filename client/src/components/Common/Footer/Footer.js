@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import './Footer.css';
 
 class Footer extends Component {
+  _timeout = 0;
+  _count = 0;
   constructor(props) {
     super(props);
     this.state = { documentHeight: 0 };
@@ -17,6 +19,10 @@ class Footer extends Component {
     } else {
       footer.style.position = 'inherit';
     }
+    
+    if (this._count === 20) {
+      clearTimeout(this._timeout);
+    }
   }
 
   updateDimension() {
@@ -24,7 +30,7 @@ class Footer extends Component {
   }
 
   componentDidUpdate() {
-    setTimeout(this.updateDimension, 555);
+    this._timeout = setTimeout(this.updateDimension, 555);
   }
 
   render() {
