@@ -20,6 +20,7 @@ class Footer extends Component {
       footer.style.position = 'inherit';
     }
     
+		++this._count;
     if (this._count === 20) {
       clearTimeout(this._timeout);
     }
