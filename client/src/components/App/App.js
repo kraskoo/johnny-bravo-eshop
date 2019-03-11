@@ -38,7 +38,7 @@ class AppBase extends Component {
       <Router>
         <Fragment>
           <UserProvider value={{ user: this.props.user, updateUser: this.props.updateUser }}>
-            <ToastContainer autoClose={3000} hideProgressBar={true} closeButton={<ToastCloseButton />} />
+            <ToastContainer position="top-left" autoClose={3000} hideProgressBar={true} closeButton={<ToastCloseButton />} />
             <Navbar toast={toast} />
             <Switch>
               <Route path="/" exact render={(props) => <Home {...props} toast={toast} />} />

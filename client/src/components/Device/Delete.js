@@ -58,7 +58,7 @@ class DeleteDevice extends Component {
     deviceService.delete(id).then(body => {
       if (body.success) {
         this.setState({ hasSubmitted: true });
-        this.props.toast.error(body.message);
+        this.props.toast.success(body.message);
       } else {
         this.props.toast.error(body.message);
       }

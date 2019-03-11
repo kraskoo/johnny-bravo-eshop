@@ -84,7 +84,7 @@ class BuyDevices extends Component {
           }
           <p>Price: ${device.price}</p>
           <div className="well">
-            <form className="form-inline">
+            <form className="form-inline" onSubmit={this.handleSubmit}>
               <div className="form-group">
                 <label htmlFor="count" className="right-space-25">Count</label>
                 <input
