@@ -71,7 +71,7 @@ class Navbar extends Component {
                   <Fragment>
                     {
                       this.props.user.roles.includes('Admin') ?
-                        <li><NavLink to="/category/all">All Category</NavLink></li> :
+                        <li><NavLink to="/category/all">All Categories</NavLink></li> :
                         null
                     }
                   </Fragment> :

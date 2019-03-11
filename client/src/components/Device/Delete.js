@@ -90,7 +90,7 @@ class DeleteDevice extends Component {
                   className="form-control"
                   id="name"
                   value={this.state.name}
-                  readOnly />
+                  disabled />
               </div>
               <div className="form-group">
                 <label htmlFor="description">Description</label>
@@ -100,7 +100,7 @@ class DeleteDevice extends Component {
                   className="form-control"
                   id="description"
                   value={this.state.description}
-                  readOnly />
+                  disabled />
               </div>
               <div className="form-group">
                 <label htmlFor="characteristics">Characteristics</label>
@@ -110,7 +110,7 @@ class DeleteDevice extends Component {
                   className="form-control"
                   id="characteristics"
                   value={this.state.characteristics} 
-                  readOnly>
+                  disabled>
                 </textarea>
               </div>
               <div className="form-group">
@@ -118,7 +118,7 @@ class DeleteDevice extends Component {
                 <select name="category" 
                   className="form-control"
                   id="category"
-                  readOnly>
+                  disabled>
                   {
                     <option value={this.state.category._id}>{this.state.category.name}</option>
                   }
@@ -132,7 +132,7 @@ class DeleteDevice extends Component {
                   className="form-control"
                   id="quantity"
                   value={this.state.quantity}
-                  readOnly />
+                  disabled />
               </div>
               <div className="form-group">
                 <label htmlFor="price">Price</label>
@@ -142,7 +142,7 @@ class DeleteDevice extends Component {
                   className="form-control"
                   id="price"
                   value={this.state.price}
-                  readOnly />
+                  disabled />
               </div>
               <div className="form-group">
                 <label htmlFor="imageUrls">Image Urls</label>
@@ -152,7 +152,7 @@ class DeleteDevice extends Component {
                   className="form-control"
                   id="imageUrls"
                   value={this.state.imageUrls}
-                  readOnly />
+                  disabled />
               </div>
               <button type="submit" className="btn btn-danger">Delete</button>
             </form>

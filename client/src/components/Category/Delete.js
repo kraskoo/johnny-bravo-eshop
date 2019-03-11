@@ -64,7 +64,7 @@ class DeleteCategory extends Component {
             <form className="form-inline" onSubmit={this.handleSubmit}>
               <div className="form-group">
                 <label htmlFor="name" className="right-space-25">Name</label>
-                <input type="text" name="name" className="form-control right-space-25 width-240" placeholder="Name" id="name" onChange={this.handleChange} value={this.state.name} readOnly />
+                <input type="text" name="name" className="form-control right-space-25 width-240" placeholder="Name" id="name" onChange={this.handleChange} value={this.state.name} disabled />
               </div>
               <button type="submit" className="btn btn-danger">Delete</button>
             </form>
