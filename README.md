@@ -46,7 +46,8 @@ cd client && npm start
 
 ### Client
 * [ReactJS](https://github.com/facebook/react) - SPA framework
-	* [React Router](https://github.com/ReactTraining/react-router/tree/master/packages/react-router-dom) - DOM bindings for React Router
+	* [React-Toastify](https://github.com/fkhadra/react-toastify) - React-Toastify allow you to add notification to your app with ease.
+	* [React Router](https://github.com/ReactTraining/react-router/tree/master/packages/react-router-dom) - Declarative routing for React
 	* [React Spinners](https://github.com/davidhu2000/react-spinners) - Loading spinners with React.js
 * [Bootstrap](https://github.com/twbs/bootstrap) - front-end web framework
 
