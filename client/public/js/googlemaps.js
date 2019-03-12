@@ -5,10 +5,10 @@ function initMap() {
     center: position,
     zoom: 16
   });
-  const infowindow = new google.maps.InfoWindow;
+  const infowindow = new google.maps.InfoWindow();
   infowindow.setContent('<b>Home</b>');
   const marker = new google.maps.Marker({ map, position });
-  marker.addListener('click', function() {
+  marker.addListener('click', function () {
     infowindow.open(map, marker);
   });
 }

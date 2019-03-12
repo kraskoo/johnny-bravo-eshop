@@ -5,13 +5,22 @@ const smallStyles = { fontVariant: 'small-caps', display: 'block' };
 
 export default class About extends Component {
   componentDidMount() {
+    const googleapisUrl = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBGPS9JJv91loXVGYGYl1AthZVwrOFuilU&language=bg&region=BG&callback=initMap';
+    const scriptUrl = './js/googlemaps.js';
+    const bodyScripts = document.body.getElementsByTagName('script');
+    for (const script of bodyScripts) {
+      if (script.src === googleapisUrl) {
+        return;
+      }
+    }
+
     const googleapis = document.createElement("script");
-    googleapis.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBGPS9JJv91loXVGYGYl1AthZVwrOFuilU&language=bg&region=BG&callback=initMap';
+    googleapis.src = googleapisUrl;
     googleapis.async = true;
     googleapis.defer = true;
     document.body.appendChild(googleapis);
     const script = document.createElement("script");
-    script.src = "./js/googlemaps.js";
+    script.src = scriptUrl;
     document.body.appendChild(script);
   }
 
