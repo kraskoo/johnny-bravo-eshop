@@ -1,6 +1,23 @@
 import React, { Component } from 'react';
 
+const mapsStyles = {
+  width: '600px',
+  height: '600px'
+};
+
 export default class About extends Component {
+  componentDidMount() {
+    const key = 'AIzaSyBGPS9JJv91loXVGYGYl1AthZVwrOFuilU';
+    const script = document.createElement("script");
+    script.src = `https://maps.googleapis.com/maps/api/js?key=${key}&language=bg&region=BG&callback=initMap`;
+    script.async = true;
+    script.defer = true;
+    document.body.appendChild(script);
+    const script2 = document.createElement("script");
+    script2.src = "./js/googlemaps.js";
+    document.body.appendChild(script2);
+  }
+
   render() {
     return (
       <div className="container">
@@ -10,6 +27,9 @@ export default class About extends Component {
         </h3>
         <br />
         <h4>This project is built with no-commercial purpose</h4>
+        <br />
+        <h4 className="text-center">this is just for demo</h4>
+        <div id="map" className="col-centered" style={mapsStyles}></div>
       </div>
     );
   }
