@@ -1,6 +1,6 @@
 # johnny-bravo-eshop
 
-GYM online shop
+> GYM online shop
 
 ## Table of contents
 
