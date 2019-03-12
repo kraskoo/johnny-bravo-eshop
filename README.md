@@ -5,6 +5,7 @@ GYM online shop
 ## Table of contents
 
 - [Installing](#installing)
+- [Starting](#starting)
 - [Built With](#built-with)
 - [Application structure](#application-structure)
 - [Application routes](#application-routes)
@@ -25,6 +26,19 @@ Installing client dependencies
 cd client && npm i
 ```
 
+## Starting
+Starting server
+
+```
+cd server && npm start
+```
+
+Starting client
+
+```
+cd client && npm start
+```
+
 ## Built With
 
 ### Server
@@ -32,7 +46,9 @@ cd client && npm i
 
 ### Client
 * [ReactJS](https://github.com/facebook/react) - SPA framework
-* [Bootstrap](https://github.com/twbs/bootstrap) - front-end Web framework
+	* [React Router](https://github.com/ReactTraining/react-router/tree/master/packages/react-router-dom) - DOM bindings for React Router
+	* [React Spinners](https://github.com/davidhu2000/react-spinners) - Loading spinners with React.js
+* [Bootstrap](https://github.com/twbs/bootstrap) - front-end web framework
 
 ## Application structure
 The application have three main parts
