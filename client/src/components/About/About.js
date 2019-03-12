@@ -8,17 +8,22 @@ export default class About extends Component {
     const googleapisUrl = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBGPS9JJv91loXVGYGYl1AthZVwrOFuilU&language=bg&region=BG&callback=initMap';
     const scriptUrl = './js/googlemaps.js';
     const bodyScripts = document.body.getElementsByTagName('script');
+    let isGoogleapisIsLoaded = false;
     for (const script of bodyScripts) {
-      if (script.src === googleapisUrl) {
-        return;
+      if (script.src === scriptUrl) {
+        isGoogleapisIsLoaded = true;
+        document.body.removeChild(script);
       }
     }
 
-    const googleapis = document.createElement("script");
-    googleapis.src = googleapisUrl;
-    googleapis.async = true;
-    googleapis.defer = true;
-    document.body.appendChild(googleapis);
+    if (!isGoogleapisIsLoaded ) {
+      const googleapis = document.createElement("script");
+      googleapis.src = googleapisUrl;
+      googleapis.async = true;
+      googleapis.defer = true;
+      document.body.appendChild(googleapis);
+    }
+
     const script = document.createElement("script");
     script.src = scriptUrl;
     document.body.appendChild(script);
