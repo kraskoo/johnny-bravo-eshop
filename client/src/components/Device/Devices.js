@@ -17,11 +17,11 @@ const DeviceDetailsWithUserContext = withConsumer(DeviceDetails, UserConsumer);
 const BuyDevicesWithUserContext = withConsumer(BuyDevices, UserConsumer);
 
 export {
-  CreateDeviceWithUserContext,
-  EditDeviceWithUserContext,
-  DeleteDeviceWithUserContext,
-  AllDevicesWithUserContext,
-  SearchDevicesWithUserContext,
   DeviceDetailsWithUserContext,
-  BuyDevicesWithUserContext
+  AllDevicesWithUserContext,
+  BuyDevicesWithUserContext,
+  CreateDeviceWithUserContext,
+  DeleteDeviceWithUserContext,
+  EditDeviceWithUserContext,
+  SearchDevicesWithUserContext
 };

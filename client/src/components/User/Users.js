@@ -8,8 +8,4 @@ const RegisterWithUserConsumer = withConsumer(Register, UserConsumer);
 const LoginWithUserConsumer = withConsumer(Login, UserConsumer);
 const SetAdminRoleWithUserConsumer = withConsumer(SetAdminRole, UserConsumer);
 
-export {
-  RegisterWithUserConsumer,
-  LoginWithUserConsumer,
-  SetAdminRoleWithUserConsumer
-};
+export { LoginWithUserConsumer, RegisterWithUserConsumer, SetAdminRoleWithUserConsumer };

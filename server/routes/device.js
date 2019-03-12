@@ -4,6 +4,59 @@ const Device = require('../models/Device');
 const Category = require('../models/Category');
 const { common: commonMessages, device: messages } = require('../services/messages');
 
+router.get('/all', (req, res) => {
+  Device.find({}).populate('category').then(devices => {
+    return res.status(200).json({
+      success: true,
+      message: messages.fetchedDevices,
+      devices
+    });
+  }).catch(error => {
+    return res.status(400).json({
+      success: false,
+      message: error.message
+    });
+  });
+});
+
+router.get('/buy/:id/:count', (req, res) => {
+  const params = req.params;
+  if (params) {
+    const { id, count } = params;
+    Device.findById(id).then(device => {
+      if (device.quantity < count) {
+        return res.status(400).json({
+          success: false,
+          message: messages.notEnoughDevices
+        });
+      }
+
+      device.quantity -= count;
+      device.save().then(() => {
+        return res.status(200).json({
+          success: true,
+          message: messages.buyedDevices(count)
+        });
+      }).catch(error => {
+        return res.status(400).json({
+          success: false,
+          message: error.message
+        });
+      });
+    }).catch(error => {
+      return res.status(400).json({
+        success: false,
+        message: error.message
+      });
+    });
+  } else {
+    return res.status(400).json({
+      success: false,
+      message: commonMessages.requiredParametes
+    });
+  }
+});
+
 router.post('/create', (req, res) => {
   const body = req.body;
   if (body) {
@@ -39,6 +92,44 @@ router.post('/create', (req, res) => {
     return res.status(400).json({
       success: false,
       message: commonMessages.requiredBody
+    });
+  }
+});
+
+router.get('/delete/:id', (req, res) => {
+  const params = req.params;
+  if (params) {
+    const { id } = params;
+    Device.findById(id).populate('category').then(device => {
+      device.category.devices.pull(device._id);
+      device.category.save().then(() => {
+        Device.findByIdAndRemove(id).then(() => {
+          return res.status(200).json({
+            success: true,
+            message: messages.deletedDevice
+          });
+        }).catch(error => {
+          return res.status(400).json({
+            success: false,
+            message: error.message
+          });
+        })
+      }).catch(error => {
+        return res.status(400).json({
+          success: false,
+          message: error.message
+        });
+      });
+    }).catch(error => {
+      return res.status(400).json({
+        success: false,
+        message: error.message
+      });
+    });
+  } else {
+    return res.status(400).json({
+      success: false,
+      message: commonMessages.requiredParametes
     });
   }
 });
@@ -126,59 +217,6 @@ router.post('/edit/:id', (req, res) => {
   }
 });
 
-router.get('/delete/:id', (req, res) => {
-  const params = req.params;
-  if (params) {
-    const { id } = params;
-    Device.findById(id).populate('category').then(device => {
-      device.category.devices.pull(device._id);
-      device.category.save().then(() => {
-        Device.findByIdAndRemove(id).then(() => {
-          return res.status(200).json({
-            success: true,
-            message: messages.deletedDevice
-          });
-        }).catch(error => {
-          return res.status(400).json({
-            success: false,
-            message: error.message
-          });
-        })
-      }).catch(error => {
-        return res.status(400).json({
-          success: false,
-          message: error.message
-        });
-      });
-    }).catch(error => {
-      return res.status(400).json({
-        success: false,
-        message: error.message
-      });
-    });
-  } else {
-    return res.status(400).json({
-      success: false,
-      message: commonMessages.requiredParametes
-    });
-  }
-});
-
-router.get('/all', (req, res) => {
-  Device.find({}).populate('category').then(devices => {
-    return res.status(200).json({
-      success: true,
-      message: messages.fetchedDevices,
-      devices
-    });
-  }).catch(error => {
-    return res.status(400).json({
-      success: false,
-      message: error.message
-    });
-  });
-});
-
 router.get('/get/:id', (req, res) => {
   const params = req.params;
   if (params) {
@@ -188,44 +226,6 @@ router.get('/get/:id', (req, res) => {
         success: true,
         message: messages.fetchedDevice,
         device
-      });
-    }).catch(error => {
-      return res.status(400).json({
-        success: false,
-        message: error.message
-      });
-    });
-  } else {
-    return res.status(400).json({
-      success: false,
-      message: commonMessages.requiredParametes
-    });
-  }
-});
-
-router.get('/buy/:id/:count', (req, res) => {
-  const params = req.params;
-  if (params) {
-    const { id, count } = params;
-    Device.findById(id).then(device => {
-      if (device.quantity < count) {
-        return res.status(400).json({
-          success: false,
-          message: messages.notEnoughDevices
-        });
-      }
-
-      device.quantity -= count;
-      device.save().then(() => {
-        return res.status(200).json({
-          success: true,
-          message: messages.buyedDevices(count)
-        });
-      }).catch(error => {
-        return res.status(400).json({
-          success: false,
-          message: error.message
-        });
       });
     }).catch(error => {
       return res.status(400).json({

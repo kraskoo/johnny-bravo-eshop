@@ -11,8 +11,8 @@ const DeleteCategoryWithUserContext = withConsumer(DeleteCategory, UserConsumer)
 const AllCategoriesWithUserContext = withConsumer(AllCategories, UserConsumer);
 
 export {
+  AllCategoriesWithUserContext,
   CreateCategoryWithUserContext,
-  EditCategoryWithUserContext,
   DeleteCategoryWithUserContext,
-  AllCategoriesWithUserContext
+  EditCategoryWithUserContext
 };

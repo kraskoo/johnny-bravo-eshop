@@ -55,29 +55,25 @@ function validateLoginForm (payload) {
   return { success: isFormValid, message, errors };
 }
 
-router.post('/register', (req, res, next) => {
-  const result = validateSignupForm(req.body);
-  if (!result.success) {
-    return res.status(200).json({
-      success: false,
-      message: result.message,
-      errors: result.errors
+router.get('/allRegular', (req, res) => {
+  User.find({}).then(users => {
+    const usersNotInAdminRole = [];
+    users.forEach(user => {
+      if (!user.roles.includes('Admin')) {
+        usersNotInAdminRole.push(user);
+      }
     });
-  }
-
-  return passport.authenticate('local-signup', (err) => {
-    if (err) {
-      return res.status(200).json({
-        success: false,
-        message: err
-      });
-    }
-    
     return res.status(200).json({
       success: true,
-      message: messages.registerSuccess
+      message: messages.fetchedUserWithoutAdminRole,
+      users: usersNotInAdminRole
     });
-  })(req, res, next);
+  }).catch(error => {
+    return res.status(400).json({
+      success: false,
+      message: error.message
+    });
+  });
 });
 
 router.post('/login', (req, res, next) => {
@@ -114,25 +110,29 @@ router.post('/login', (req, res, next) => {
   })(req, res, next);
 });
 
-router.get('/allRegular', (req, res) => {
-  User.find({}).then(users => {
-    const usersNotInAdminRole = [];
-    users.forEach(user => {
-      if (!user.roles.includes('Admin')) {
-        usersNotInAdminRole.push(user);
-      }
+router.post('/register', (req, res, next) => {
+  const result = validateSignupForm(req.body);
+  if (!result.success) {
+    return res.status(200).json({
+      success: false,
+      message: result.message,
+      errors: result.errors
     });
+  }
+
+  return passport.authenticate('local-signup', (err) => {
+    if (err) {
+      return res.status(200).json({
+        success: false,
+        message: err
+      });
+    }
+    
     return res.status(200).json({
       success: true,
-      message: messages.fetchedUserWithoutAdminRole,
-      users: usersNotInAdminRole
+      message: messages.registerSuccess
     });
-  }).catch(error => {
-    return res.status(400).json({
-      success: false,
-      message: error.message
-    });
-  });
+  })(req, res, next);
 });
 
 router.get('/setadmin/:id', (req, res) => {
