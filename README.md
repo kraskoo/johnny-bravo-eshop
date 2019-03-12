@@ -1,3 +1,9 @@
+<p align="center">
+  <a href="https://github.com/kraskoo/johnny-bravo-eshop">
+    <img src="https://raw.githubusercontent.com/kraskoo/johnny-bravo-eshop/master/client/public/favicon.png" alt="Bootstrap logo" width="100" height="100">
+  </a>
+</p>
+
 # johnny-bravo-eshop
 
 > GYM online shop
