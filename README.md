@@ -1,6 +1,6 @@
 <p align="center">
   <a href="https://github.com/kraskoo/johnny-bravo-eshop">
-    <img src="https://raw.githubusercontent.com/kraskoo/johnny-bravo-eshop/master/client/public/favicon.png" alt="Bootstrap logo" width="100" height="100">
+    <img src="https://raw.githubusercontent.com/kraskoo/johnny-bravo-eshop/master/client/public/favicon.png" alt="Bootstrap logo" width="60" height="60">
   </a>
 </p>
 
@@ -62,8 +62,8 @@ cd client && npm start
 * webpack-bundle - compiling bundle of bootstrap 3.4.1, jquery 3.3.1, popper.js 1.14.7, tether 1.4.5
 	* Requrements: webpack, webpack-cli
 		* Installing: ```npm i -g webpack && npm i -g webpack-cli```
-		* Starting ```cd webpack-bundle && npm i && npm run build ```
-* jsons - exported json files for categories and devices collections
+	* Starting ```cd webpack-bundle && npm i && npm run build ```
+* jsons - exported collections as json files for categories and devices
 	* Importing: Just start ```populate.cmd``` file under Windows, sorry about Linux users
 
 ## Application structure
