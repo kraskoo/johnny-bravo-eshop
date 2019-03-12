@@ -56,6 +56,7 @@ The application have three main parts
 
 * Public part
 	* Guests can access home page
+	* Guests can access about page
 	* Guests can register
 	* Guests can login
 	* Guests can list all devices
@@ -100,7 +101,8 @@ The application have two type of routes
 		* [*http://localhost:65535*]/user/register - [POST] - create new user with regular role, authenticate
 		* [*http://localhost:65535*]/user/setadmin/:id - [GET] - replace user regular role with admin role
 * Client
-	* [*http://localhost:3000*]
+	* [*http://localhost:3000*] - Render view with dummy information
+	* [*http://localhost:3000*]/about - Render view with information about project
 	* [*http://localhost:3000*]/category/all - Render view with all categories
 	* [*http://localhost:3000*]/category/create - Render view with create form for category
 	* [*http://localhost:3000*]/category/delete/:id - Render view with delete form for category

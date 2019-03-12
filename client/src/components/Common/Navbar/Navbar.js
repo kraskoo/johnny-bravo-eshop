@@ -94,6 +94,7 @@ class Navbar extends Component {
                 </span>
               </div>
             </form>
+            <NavLink to="/about" className="navbar-brand">About</NavLink>
             <ul className="nav navbar-nav navbar-right">
               {
                 this.props.user ?
