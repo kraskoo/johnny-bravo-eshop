@@ -7,15 +7,14 @@ const mapsStyles = {
 
 export default class About extends Component {
   componentDidMount() {
-    const key = 'AIzaSyBGPS9JJv91loXVGYGYl1AthZVwrOFuilU';
+    const googleapis = document.createElement("script");
+    googleapis.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBGPS9JJv91loXVGYGYl1AthZVwrOFuilU&language=bg&region=BG&callback=initMap';
+    googleapis.async = true;
+    googleapis.defer = true;
+    document.body.appendChild(googleapis);
     const script = document.createElement("script");
-    script.src = `https://maps.googleapis.com/maps/api/js?key=${key}&language=bg&region=BG&callback=initMap`;
-    script.async = true;
-    script.defer = true;
+    script.src = "./js/googlemaps.js";
     document.body.appendChild(script);
-    const script2 = document.createElement("script");
-    script2.src = "./js/googlemaps.js";
-    document.body.appendChild(script2);
   }
 
   render() {
