@@ -7,6 +7,7 @@
 - [Installing](#installing)
 - [Starting](#starting)
 - [Built With](#built-with)
+- [Addons](#addons)
 - [Application structure](#application-structure)
 - [Application routes](#application-routes)
 - [Author](#author)
@@ -51,6 +52,14 @@ cd client && npm start
 	* [React Spinners](https://github.com/davidhu2000/react-spinners) - Loading spinners with React.js
 * [Bootstrap](https://github.com/twbs/bootstrap) - front-end web framework
 
+## Addons
+* webpack-bundle - compiling bundle of bootstrap 3.4.1, jquery 3.3.1, popper.js 1.14.7, tether 1.4.5
+	* Requrements: webpack, webpack-cli
+		* Installing: ```npm i -g webpack && npm i -g webpack-cli```
+		* Starting ```cd webpack-bundle && npm i && npm run build ```
+* jsons - exported json files for categories and devices collections
+	* Importing: Just start ```populate.cmd``` file under Windows, sorry about Linux users
+
 ## Application structure
 The application have three main parts
 
@@ -90,7 +99,7 @@ The application have two type of routes
 		* [*http://localhost:65535*]/device/delete/:id - [GET] - delete device by id
 		* [*http://localhost:65535*]/device/edit/:id - [POST] - edit device by id 
 		* [*http://localhost:65535*]/device/get/:id - [GET] - return device by id
-		* [*http://localhost:65535*]/device/search/:search - [GET] - return all categories by name or return all device by name or description
+		* [*http://localhost:65535*]/device/search/:search - [GET] - return all categories by name or return all device by name and description
 	* Session
 		* [*http://localhost:65535*]/session/create - [POST] - create new session
 		* [*http://localhost:65535*]/session/get - [GET] - return session by jwtString and email
