@@ -1,34 +1,6 @@
 import React, { Component } from 'react';
 
-const mapsStyles = { width: '600px', height: '600px' };
-const smallStyles = { fontVariant: 'small-caps', display: 'block' };
-
 export default class About extends Component {
-  componentDidMount() {
-    const googleapisUrl = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyBGPS9JJv91loXVGYGYl1AthZVwrOFuilU&language=bg&region=BG&callback=initMap';
-    const scriptUrl = './js/googlemaps.js';
-    const bodyScripts = document.body.getElementsByTagName('script');
-    let isGoogleapisIsLoaded = false;
-    for (const script of bodyScripts) {
-      if (script.src === scriptUrl) {
-        isGoogleapisIsLoaded = true;
-        document.body.removeChild(script);
-      }
-    }
-
-    if (!isGoogleapisIsLoaded ) {
-      const googleapis = document.createElement("script");
-      googleapis.src = googleapisUrl;
-      googleapis.async = true;
-      googleapis.defer = true;
-      document.body.appendChild(googleapis);
-    }
-
-    const script = document.createElement("script");
-    script.src = scriptUrl;
-    document.body.appendChild(script);
-  }
-
   render() {
     return (
       <div className="container">
@@ -38,11 +10,6 @@ export default class About extends Component {
         </h3>
         <br />
         <h4>This project is built with non-commercial purpose</h4>
-        <br />
-        <h4 className="text-center">This map is just for demo!</h4>
-        <small className="text-center" style={smallStyles}>Probably it won't work correctly, this could be because of new billing system</small>
-        <br />
-        <div id="map" className="col-centered" style={mapsStyles}></div>
       </div>
     );
   }
