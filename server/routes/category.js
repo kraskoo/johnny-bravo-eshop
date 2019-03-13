@@ -4,7 +4,7 @@ const Category = require('../models/Category');
 const Device = require('../models/Device');
 const { common: commonMessages, category: messages } = require('../services/messages');
 
-router.get('/all', (req, res) => {
+router.get('/all', (_req, res) => {
   Category.find({}).then(categories => {
     return res.status(200).json({
       success: true,
@@ -37,7 +37,7 @@ router.post('/create', (req, res) => {
   } else {
     return res.status(400).json({
       success: false,
-      message: messages.requiredBody
+      message: commonMessages.requiredBody
     });
   }
 });

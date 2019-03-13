@@ -17,13 +17,12 @@ module.exports = {
     setAdminRoleSuccessfully: (user) => `Successfully set admin role to ${user.username}`
   },
   session: {
-    createdSuccess: 'Successfully created session.',
+    createdSession: 'Successfully created session.',
     sessionExists: 'Session exists.',
-    deletedSuccess: 'Successfully deleted session.'
+    deletedSession: 'Successfully deleted session.'
   },
   category: {
     createdCategory: 'Successfully create category!',
-    requiredBody: 'Request should have body!',
     editedCategory: (catergory) => `Successfully edited category ${catergory.name}!`,
     fetchedCategories: 'Successfully fetched all categories!',
     fetchedCategory: (category) => `Successfully fetched category ${category.name}`,

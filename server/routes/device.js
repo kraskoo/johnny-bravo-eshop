@@ -4,7 +4,7 @@ const Device = require('../models/Device');
 const Category = require('../models/Category');
 const { common: commonMessages, device: messages } = require('../services/messages');
 
-router.get('/all', (req, res) => {
+router.get('/all', (_req, res) => {
   Device.find({}).populate('category').then(devices => {
     return res.status(200).json({
       success: true,

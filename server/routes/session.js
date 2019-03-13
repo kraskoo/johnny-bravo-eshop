@@ -21,7 +21,7 @@ router.post('/create', (req, res) => {
         
         return res.status(200).json({
           success: true,
-          message: messages.createdSuccess,
+          message: messages.createdSession,
           user: value
         });
       }).catch(error => {
@@ -106,7 +106,7 @@ router.post('/remove', (req, res) => {
 
         return res.status(200).json({
           success: true,
-          message: messages.deletedSuccess,
+          message: messages.deletedSession,
           session: { jwtString: session.jwtString, email: user.email }
         });
       }).catch(error => {

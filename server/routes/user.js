@@ -55,7 +55,7 @@ function validateLoginForm (payload) {
   return { success: isFormValid, message, errors };
 }
 
-router.get('/allRegular', (req, res) => {
+router.get('/allRegular', (_req, res) => {
   User.find({}).then(users => {
     const usersNotInAdminRole = [];
     users.forEach(user => {
