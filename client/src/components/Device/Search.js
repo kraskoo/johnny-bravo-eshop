@@ -38,7 +38,7 @@ class SearchDevices extends Component {
         <h1>Search results for `{this.props.match.params.search}`</h1>
         <div className="row">
           {
-            this.state.devices.map(device => DeviceBox(device, this.props.user))
+            this.state.devices.map(device => DeviceBox(device, this.props.user, this.props.match.path))
           }
         </div>
       </div>
