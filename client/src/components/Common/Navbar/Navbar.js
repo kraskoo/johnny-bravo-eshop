@@ -10,6 +10,12 @@ class Navbar extends Component {
     this.handleLogout = this.handleLogout.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.logout = this.logout.bind(this);
+    this.onBeforeUnload = this.onBeforeUnload.bind(this);
+  }
+
+  componentDidMount() {
+    window.addEventListener('beforeunload', this.onBeforeUnload);
   }
 
   handleSubmit(e) {
@@ -27,8 +33,13 @@ class Navbar extends Component {
     this.setState({ [target.name]: target.value });
   }
 
-  handleLogout(e) {
-    e.preventDefault();
+  onBeforeUnload() {
+    if (this.props.user) {
+      this.logout();
+    }
+  }
+
+  logout() {
     const email = sessionStorage.getItem('email');
     const jwtString = sessionStorage.getItem('token');
     if (email && jwtString) {
@@ -48,6 +59,11 @@ class Navbar extends Component {
     } else {
       this.props.toast.error('jwtString or email is missing');
     }
+  }
+
+  handleLogout(e) {
+    e.preventDefault();
+    this.logout();
   }
 
   render() {
