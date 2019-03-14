@@ -269,7 +269,8 @@ router.get('/search/:search', (req, res) => {
             devices
           });
         } else {
-          Device.find({ $or: [{ name: { $regex: search, $options: 'i' } }, { description: { $regex: search, $options: 'i' } }] })
+          const descriptionSearch = search.replace(/\s+/g, ' ');
+          Device.find({ $or: [{ name: { $regex: search, $options: 'i' } }, { description: { $regex: descriptionSearch, $options: 'gi' } }] })
             .populate('category')
             .then(devices => {
               return res.status(200).json({
