@@ -1,6 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+const stockImgStyles = {
+  position: 'absolute',
+  top: '0',
+  right: '0',
+  width: '65px',
+  height: '65px'
+};
+
 function DeviceBox(device, user) {
   const nameLength = 30;
   let slicedName = device.name.split('').slice(0, nameLength);
@@ -18,6 +26,7 @@ function DeviceBox(device, user) {
     <div className="col-sm-6 col-md-3" key={device._id}>
       <div className="thumbnail">
         <img src={device.imageUrls[0]} alt={device.name} />
+        <img style={stockImgStyles} src={device.quantity > 0 ? '../images/in-stock.png' : '../images/out-of-stock.png'} alt="Stock images" />
         <div className="caption">
           <h3>{slicedName.join('')}</h3>
           <p>{slicedDescription.join('')}</p>
