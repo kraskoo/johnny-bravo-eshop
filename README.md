@@ -56,6 +56,7 @@ cd client && npm start
 	* [React-Toastify](https://github.com/fkhadra/react-toastify) - React-Toastify allow you to add notification to your app with ease.
 	* [React Router](https://github.com/ReactTraining/react-router/tree/master/packages/react-router-dom) - Declarative routing for React
 	* [React Spinners](https://github.com/davidhu2000/react-spinners) - Loading spinners with React.js
+	* [React Responsive Carousel](https://github.com/leandrowd/react-responsive-carousel) - Carousel
 * [Bootstrap](https://github.com/twbs/bootstrap) - front-end web framework
 
 ## Addons
