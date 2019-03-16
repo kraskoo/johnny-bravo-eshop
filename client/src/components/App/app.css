@@ -10,6 +10,24 @@ html, body, #root {
   min-height: calc(100% - 110px);
 }
 
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px grey; 
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #66b3ff; 
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #0066cc; 
+}
+
 .col-centered {
   float: none;
   margin: 0 auto;
