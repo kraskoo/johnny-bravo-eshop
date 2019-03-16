@@ -2,39 +2,6 @@ import React, { Component } from 'react';
 import './Footer.css';
 
 class Footer extends Component {
-  _timeout = 0;
-  _count = 0;
-  constructor(props) {
-    super(props);
-    this.state = { documentHeight: 0 };
-    this.setFooterPosition = this.setFooterPosition.bind(this);
-    this.updateDimension = this.updateDimension.bind(this);
-  }
-
-  setFooterPosition() {
-    const footer = document.getElementsByTagName('footer')[0];
-    if (this.state.documentHeight < window.screen.height) {
-      footer.style.position = 'fixed';
-      footer.style.bottom = '0';
-    } else {
-      footer.style.position = 'inherit';
-    }
-    
-    ++this._count;
-    if (this._count === 30) {
-      clearTimeout(this._timeout);
-      this._count = 0;
-    }
-  }
-
-  updateDimension() {
-    this.setState({ documentHeight: document.body.offsetHeight }, this.setFooterPosition);
-  }
-
-  componentDidUpdate() {
-    this._timeout = setTimeout(this.updateDimension, 355);
-  }
-
   render() {
     return (
       <footer className="footer">

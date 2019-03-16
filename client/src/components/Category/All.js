@@ -34,7 +34,7 @@ class AllCategories extends Component {
     }
 
     return (
-      <div className="container">
+      <div id="main" className="container">
         <div className="col-md-6 col-centered">
           <h1>All Categories</h1>
           <table className="table table-hover">

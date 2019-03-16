@@ -34,7 +34,7 @@ class AllDevices extends Component {
     }
 
     return (
-      <div className="container">
+      <div id="main" className="container">
         <h1>All Devices</h1>
         <div className="row">
           {

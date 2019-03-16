@@ -77,7 +77,7 @@ class DeleteDevice extends Component {
     }
     
     return (
-      <div className="container">
+      <div id="main" className="container">
         <div className="col-md-5 col-centered">
           <h1>Delete Device</h1>
           <div className="well">

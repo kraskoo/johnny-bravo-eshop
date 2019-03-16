@@ -63,7 +63,7 @@ class SetAdminRole extends Component {
     }
 
     return (
-      <div className="container">
+      <div id="main" className="container">
         <div className="col-md-6 col-centered">
           <h1>Set Admin Role to Regular User</h1>
             {

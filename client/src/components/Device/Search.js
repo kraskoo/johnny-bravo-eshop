@@ -34,7 +34,7 @@ class SearchDevices extends Component {
     }
 
     return (
-      <div className="container">
+      <div id="main" className="container">
         <h1>Search results for `{this.props.match.params.search}`</h1>
         <div className="row">
           {

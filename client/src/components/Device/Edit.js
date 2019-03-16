@@ -106,7 +106,7 @@ class EditDevice extends Component {
     }
     
     return (
-      <div className="container">
+      <div id="main" className="container">
         <div className="col-md-5 col-centered">
           <h1>Edit Device</h1>
           <div className="well">

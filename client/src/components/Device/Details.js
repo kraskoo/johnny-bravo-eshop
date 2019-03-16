@@ -50,7 +50,7 @@ class DeviceDetails extends Component {
 
     const device = this.state.device;
     return (
-      <div className="container">
+      <div id="main" className="container">
         <h1>{device.name}</h1>
         <p style={italic}>{device.description}</p>
         <h4 style={rightAlign} className="text-info">Price: ${device.price}</h4>

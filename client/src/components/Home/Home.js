@@ -4,7 +4,7 @@ import './Home.css';
 class Home extends Component {
   render() {
     return (
-      <div className="container">
+      <div id="main" className="container">
         <h1>Home</h1>
         <div id="carousel" className="carousel slide" data-ride="carousel">
           <ol className="carousel-indicators">

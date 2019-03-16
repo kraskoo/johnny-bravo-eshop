@@ -73,7 +73,7 @@ class BuyDevices extends Component {
 
     const device = this.state.device;
     return (
-      <div className="container">
+      <div id="main" className="container">
         <div className="col-md-7 col-centered">
           <h1>Name: {device.name}</h1>
           <img src={device.imageUrls[0]} alt={device.name} style={imgStyles} />

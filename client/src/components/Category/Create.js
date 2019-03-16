@@ -35,7 +35,7 @@ class CreateCategory extends Component {
     }
 
     return (
-      <div className="container">
+      <div id="main" className="container">
         <div className="col-md-5 col-centered">
           <h1>Create Category</h1>
           <div className="well">
