@@ -12,8 +12,8 @@ const CarouselImages = (device) => (
   <div className="col-md-8 col-centered">
     <Carousel showIndicators={false} showStatus={false} autoPlay={true} emulateTouch={true} infiniteLoop={true}>
       {device.imageUrls.map((img, i) => (
-        <div key>
-          <img src={img} key={`${device._id}image${i}`} style={imageStyle} alt={device.name} />
+        <div key={`${device._id}image${i}`}>
+          <img src={img} style={imageStyle} alt={device.name} />
         </div>
       ))}
     </Carousel>
